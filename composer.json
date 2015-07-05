@@ -18,7 +18,6 @@
     "autoload": {
     	"psr-4": {
     		"Wikidata\\": "src"
-    	},
-    	"files": ["helpers.php"]
+    	}
     }
 }
