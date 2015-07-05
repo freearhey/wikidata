@@ -20,7 +20,7 @@ class SearchItem {
 		$this->label = $item->label;
 		$this->description = $item->description;
 		$this->match = new SearchItemMatch($item->match);
-		$this->aliases = $item->aliases;
+		$this->aliases = (isset($item->aliases)) ? $item->aliases : null;
 
 	}
 

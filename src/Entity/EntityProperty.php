@@ -17,8 +17,8 @@ class EntityProperty {
 		$this->type = $property->type;
 		$this->rank = $property->rank;
 		$this->references = (isset($property->references)) ? array_map([$this, 'createPropertyReferences'], $property->references) : null;
-		$this->qualifiers = array_map([$this, 'createPropertyQualifiers'], (array) $property->qualifiers);
-		$this->{'qualifiers-order'} = $property->{'qualifiers-order'};
+		$this->qualifiers = (isset($property->qualifiers)) ? array_map([$this, 'createPropertyQualifiers'], (array) $property->qualifiers) : null;
+		$this->{'qualifiers-order'} = (isset($this->{'qualifiers-order'})) ? $property->{'qualifiers-order'} : null;
 
 	}
 

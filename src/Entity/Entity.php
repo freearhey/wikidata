@@ -15,17 +15,17 @@ class Entity {
 	 */
 	public function __construct($entity) {
 
-		$this->entity['page_id'] = $entity->pageid;
-		$this->entity['ns'] = $entity->ns;
-		$this->entity['title'] = $entity->title;
-		$this->entity['lastrevid'] = $entity->lastrevid;
-		$this->entity['modified'] = $entity->modified;
-		$this->entity['id'] = $entity->id;
-		$this->entity['type'] = $entity->type;
-		$this->aliases = array_map([$this, 'createEntityAlias'], (array) $entity->aliases);
-		$this->labels = array_map([$this, 'createEntityValue'], (array) $entity->labels);
-		$this->descriptions = array_map([$this, 'createEntityValue'], (array) $entity->descriptions);
-		$this->properties = array_map([$this, 'createEntityProperties'], (array) $entity->claims);
+		$this->entity['page_id'] = (isset($entity->pageid)) ? $entity->pageid : null;
+		$this->entity['ns'] = (isset($entity->ns)) ? $entity->ns : null;
+		$this->entity['title'] = (isset($entity->title)) ? $entity->title : null;
+		$this->entity['lastrevid'] = (isset($entity->lastrevid)) ? $entity->lastrevid : null;
+		$this->entity['modified'] = (isset($entity->modified)) ? $entity->modified : null;
+		$this->entity['id'] = (isset($entity->id)) ? $entity->id : null;
+		$this->entity['type'] = (isset($entity->type)) ? $entity->type : null;
+		$this->aliases = (isset($entity->aliases)) ? array_map([$this, 'createEntityAlias'], (array) $entity->aliases) : null;
+		$this->labels = (isset($entity->labels)) ? array_map([$this, 'createEntityValue'], (array) $entity->labels) : null;
+		$this->descriptions = (isset($entity->descriptions)) ? array_map([$this, 'createEntityValue'], (array) $entity->descriptions) : null;
+		$this->properties = (isset($entity->claims)) ? array_map([$this, 'createEntityProperties'], (array) $entity->claims) : null;
 
 	}
 
