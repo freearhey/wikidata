@@ -2,6 +2,13 @@
 
 class SearchItem {
 	
+	private $id,
+			$url,
+			$label,
+			$description,
+			$match,
+			$aliases;
+
 	/**
 	 * Class constructor
 	 * @param object $item StdClass object with item
