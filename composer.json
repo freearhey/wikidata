@@ -1,0 +1,24 @@
+{
+	"name": "freearhey/wikidata",
+	"description": "A PHP client for working with Wikidata API.",
+	"keywords": ["wikidata", "client", "php"],
+	"homepage": "https://github.com/freearhey/wikidata",
+	"license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Aleksandr Statciuk",
+            "email": "free.arhey@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+    	"psr-4": {
+    		"Wikidata\\": "src"
+    	},
+    	"files": ["helpers.php"]
+    }
+}
