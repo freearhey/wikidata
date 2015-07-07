@@ -74,23 +74,85 @@ class Entity {
 	}
 
 	/**
-	 * Get entity property by id and language
+	 * Get entity property value by id and language
 	 * @param  string $id   See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
 	 * @param  string $lang Language of property's value
 	 * @return mix      Return list all property values or null if property not exist
 	 */
 	public function getPropertyValues($id, $lang = 'en') {
 
+		if(!$properties = $this->getProperty($id))
+			return null;
+
+		$output = [];
+
+		foreach($properties as $property) {
+
+			$output[] = $property->getMainsnak()->getDatavalue()->getValue($lang);
+
+		}
+
+		return $output;
+
+	}
+
+	/**
+	 * Get property of entity by id
+	 * @param  string $id See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
+	 * @return mix     Return list of /Entity/EntityProperty or null if property not exist
+	 */
+	public function getProperty($id) {
+
 		$id = strtoupper($id);
 
 		if(!isset($this->properties[$id]))
 			return null;
 
+		return $this->properties[$id];
+
+	}
+
+	/**
+	 * Get property values with qualifier as array
+	 * @param  string $prop_id Property id. See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
+	 * @param  string $qual_id Qualifier id. See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
+	 * @param  string $lang    Language
+	 * @return mix         Return array where key - property value, value - qualifier value or null
+	 */
+	public function getPropertyValuesWithQualifierAsArray($prop_id, $qual_id, $lang = 'en') {
+
+		if(!$properties = $this->getProperty($prop_id))
+			return null;
+
 		$output = [];
 
-		foreach($this->properties[$id] as $property) {
+		foreach ($properties as $property) {
 
-			$output[] = $property->getMainsnak()->getDatavalue()->getValue($lang);
+			$propValue = $property->getMainsnak()->getDatavalue()->getValue($lang);
+
+			$output[$propValue] = $property->getQualifierValues($qual_id)[0];
+		
+		}
+
+		return $output;
+
+	}
+
+	/**
+	 * Get entity alias value by language
+	 * @param  string $lang Language of alias value
+	 * @return mix      Return list all alias values or null if alias not exist
+	 */
+	public function getAliasValues($lang = 'en') {
+
+		if(!isset($this->aliases[$lang]))
+			return null;
+
+		$output = [];
+
+		foreach($this->aliases[$lang] as $alias) {
+
+			$output[] = $alias->getValue();
 
 		}
 

@@ -48,7 +48,7 @@ class PropertyDatavalue {
 	 * @param  string $lang Language
 	 * @return mix   Return string or array of objects   
 	 */
-	public function getValue($lang) {
+	public function getValue($lang = 'en') {
 
 		if(is_string($this->value))
 			return $this->value;

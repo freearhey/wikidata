@@ -16,4 +16,14 @@ class PropertyQualifier {
 
 	}
 
+	/**
+	 * Get property datavalue
+	 * @return object /Property/PropertyDatavalue
+	 */
+	public function getDatavalue() {
+
+		return $this->datavalue;
+
+	}
+
 }

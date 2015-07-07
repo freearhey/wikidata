@@ -65,4 +65,37 @@ class EntityProperty {
 
 	}
 
+	/**
+	 * Get qualifier of property
+	 * @param  string $id See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
+	 * @return object     List of /Property/PropertyQualifier
+	 */
+	public function getQualifier($id) {
+
+		return $this->qualifiers[$id];
+
+	}
+
+	/**
+	 * Get qualifier all values
+	 * @param  string $id Qualifier id
+	 * @return mix     Return array with qualifier values or null
+	 */
+	public function getQualifierValues($id) {
+
+		if(!$qualifiers = $this->getQualifier($id))
+			return null;
+
+		$output = [];
+
+		foreach($qualifiers as $qualifier) {
+
+			$output[] = $qualifier->getDatavalue()->getValue();
+
+		}
+
+		return $output;
+
+	}
+
 }
