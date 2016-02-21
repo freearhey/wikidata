@@ -2,3 +2,4 @@ vendor
 composer.lock
 helpers.php
 index.php
+.idea

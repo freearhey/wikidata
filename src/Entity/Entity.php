@@ -20,6 +20,7 @@ class Entity {
 		$this->entity['title'] = (isset($entity->title)) ? $entity->title : null;
 		$this->entity['lastrevid'] = (isset($entity->lastrevid)) ? $entity->lastrevid : null;
 		$this->entity['modified'] = (isset($entity->modified)) ? $entity->modified : null;
+		$this->entity['redirects'] = (isset($entity->redirects)) ? $entity->redirects : null;
 		$this->entity['id'] = (isset($entity->id)) ? $entity->id : null;
 		$this->entity['type'] = (isset($entity->type)) ? $entity->type : null;
 		$this->aliases = (isset($entity->aliases)) ? array_map([$this, 'createEntityAlias'], (array) $entity->aliases) : null;
