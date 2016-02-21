@@ -114,6 +114,30 @@ class Entity {
 	}
 
 	/**
+	 * Get entity metadatas
+	 * @return array
+	 */
+	public function getMetadatas() {
+		return $this->entity;
+
+	}
+
+	/**
+	 * Get an entity metadata
+	 * @return mix     
+	 */
+	public function getMetadataValue($metadata) {
+
+		$value = null;
+		if(isset($this->entity[$metadata])){
+			$value = $this->entity[$metadata];
+		}
+
+		return $value;
+
+	}
+
+	/**
 	 * Get property values with qualifier as array
 	 * @param  string $prop_id Property id. See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
 	 * @param  string $qual_id Qualifier id. See more at https://www.wikidata.org/wiki/Wikidata:List_of_properties
