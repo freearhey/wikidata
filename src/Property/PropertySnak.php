@@ -11,7 +11,7 @@ class PropertySnak {
 		$this->snaktype = $snak->snaktype;
 		$this->property = $snak->property;
 		$this->datatype = $snak->datatype;
-		$this->datavalue = new PropertyDatavalue($snak->datavalue);
+		$this->datavalue = ($snak->snaktype == 'value') ? new PropertyDatavalue($snak->datavalue): null;
 
 	}
 
