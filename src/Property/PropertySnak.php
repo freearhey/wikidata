@@ -1,5 +1,8 @@
 <?php namespace Wikidata\Property;
 
+use Wikidata\Exception\PropertySnakHaveNoValue;
+use Wikidata\Property\NullPropertyDatavalue;
+
 class PropertySnak {
 	
 	/**
@@ -11,7 +14,7 @@ class PropertySnak {
 		$this->snaktype = $snak->snaktype;
 		$this->property = $snak->property;
 		$this->datatype = $snak->datatype;
-		$this->datavalue = new PropertyDatavalue($snak->datavalue);
+		$this->datavalue = ($snak->snaktype == 'value') ? new PropertyDatavalue($snak->datavalue) : new NullPropertyDatavalue();		
 
 	}
 
