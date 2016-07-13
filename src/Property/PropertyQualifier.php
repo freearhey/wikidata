@@ -12,7 +12,7 @@ class PropertyQualifier {
 		$this->snaktype = $qualifier->snaktype;
 		$this->property = $qualifier->property;
 		$this->datatype = $qualifier->datatype;
-		$this->datavalue = new PropertyDatavalue($qualifier->datavalue);
+		$this->datavalue = ($this->snaktype != 'somevalue') ? new PropertyDatavalue($qualifier->datavalue) : new NullPropertyDatavalue();
 
 	}
 

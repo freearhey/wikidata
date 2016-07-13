@@ -20,6 +20,7 @@ class Entity {
 		$this->entity['title'] = (isset($entity->title)) ? $entity->title : null;
 		$this->entity['lastrevid'] = (isset($entity->lastrevid)) ? $entity->lastrevid : null;
 		$this->entity['modified'] = (isset($entity->modified)) ? $entity->modified : null;
+		$this->entity['redirects'] = (isset($entity->redirects)) ? $entity->redirects : null;
 		$this->entity['id'] = (isset($entity->id)) ? $entity->id : null;
 		$this->entity['type'] = (isset($entity->type)) ? $entity->type : null;
 		$this->aliases = (isset($entity->aliases)) ? array_map([$this, 'createEntityAlias'], (array) $entity->aliases) : null;
@@ -109,6 +110,30 @@ class Entity {
 			return null;
 
 		return $this->properties[$id];
+
+	}
+
+	/**
+	 * Get entity metadatas
+	 * @return array
+	 */
+	public function getMetadatas() {
+		return $this->entity;
+
+	}
+
+	/**
+	 * Get an entity metadata
+	 * @return mix     
+	 */
+	public function getMetadataValue($metadata) {
+
+		$value = null;
+		if(isset($this->entity[$metadata])){
+			$value = $this->entity[$metadata];
+		}
+
+		return $value;
 
 	}
 
