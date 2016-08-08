@@ -18,7 +18,7 @@ class SearchItem {
 		$this->id = $item->id;
 		$this->url = $item->url;
 		$this->label = $item->label;
-		$this->description = $item->description;
+		$this->description = (isset($item->description)) ? $item->description : null;
 		$this->match = new SearchItemMatch($item->match);
 		$this->aliases = (isset($item->aliases)) ? $item->aliases : null;
 
