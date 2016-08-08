@@ -23,7 +23,6 @@ class Wikidata {
         if(empty($params['language']) || empty($params['limit']))
             throw new InvalidArgumentException("Second argument search() must contain language and limit properties");
             
-
 		$url = sprintf('%s?action=%s&format=json&type=item&search=%s&%s', self::API_BASE_ENDPOINT, self::SEARCH_API_ACTION, urlencode($query), http_build_query($params));
 
 		$response = $this->doRequest($url);
@@ -43,6 +42,8 @@ class Wikidata {
     {
         if(empty($params['language']) || empty($params['limit']))
             throw new InvalidArgumentException("Third argument searchByPropertyEntity() must contain language and limit properties");
+
+        $params['offset'] = isset( $params['offset'] ) ? $params['offset'] : 0;
 
         $queryString = 
         'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel WHERE 
@@ -75,6 +76,8 @@ class Wikidata {
     {
         if(empty($params['language']) || empty($params['limit']))
             throw new InvalidArgumentException("Third argument searchByPropertyValue() must contain language and limit properties");
+
+        $params['offset'] = isset( $params['offset'] ) ? $params['offset'] : 0;
 
         $queryString = 
         'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel WHERE 
