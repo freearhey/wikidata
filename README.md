@@ -11,7 +11,7 @@ composer require freearhey/wikidata
 ### Usage
 
 ```php
-$wikidata = new Wikidata;
+$wikidata = new Wikidata\Wikidata;
 ```
 
 #### Search
