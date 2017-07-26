@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "benestar/asparagus": "dev-master",
+        "benestar/asparagus": "dev-master as 0.4.x-dev",
 		"tightenco/collect": "^5.4",
 		"guzzlehttp/guzzle": "^6.3"
     },
