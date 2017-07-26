@@ -4,7 +4,7 @@
 	"keywords": ["wikidata", "client", "php"],
 	"homepage": "https://github.com/freearhey/wikidata",
 	"license": "MIT",
-    "version": "1.0.4",
+    "version": "2.0.0",
     "authors": [
         {
             "name": "Aleksandr Statciuk",
@@ -13,11 +13,20 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0"
+        "benestar/asparagus": "dev-master",
+		"tightenco/collect": "^5.4",
+		"guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
     	"psr-4": {
     		"Wikidata\\": "src"
-    	}
-    }
+    	},
+        "files": ["src/helpers.php"]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/freearhey/asparagus"
+        }
+    ]
 }
