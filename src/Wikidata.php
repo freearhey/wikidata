@@ -149,7 +149,7 @@ class Wikidata {
         $collection = collect($results['bindings']);
 
         $collection = $collection->groupBy(function ($item, $key) {
-            return str_slug($item['property']['value']);
+            return $this->slug($item['property']['value']);
         });
 
         $collection = $collection->map(function($item) {
@@ -170,5 +170,16 @@ class Wikidata {
 
         return preg_match("/^P[0-9]+/", $value);
 
+    }
+
+    private function slug($string) 
+    {
+      $separator = '_';
+      $flip = '-';
+      $string = preg_replace('!['.preg_quote($flip).']+!u', $separator, $string);
+      $string = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($string));
+      $string = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $string);
+
+      return trim($string, $separator);
     }
 }
