@@ -24,7 +24,13 @@ class Entity
 
   public function get($name) {
 
-    return ($this->data->has($name)) ? $this->data->get($name)->toArray() : [];
+    return ($this->has($name)) ? $this->data->get($name)->toArray() : [];
+
+  }
+
+  public function has($name) {
+
+    return $this->data->has($name);
 
   }
 
