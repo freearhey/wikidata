@@ -4,37 +4,48 @@ namespace Wikidata;
 
 class Result
 {
-
+  /**
+   * @var \Illuminate\Support\Collection
+   */
   private $data;
 
-  public function __construct($data) {
-
-    $this->data = collect($data);
-
+  /**
+   * @param \Illuminate\Support\Collection $data
+   */
+  public function __construct($data) 
+  {
+    $this->data = $data;
   }
 
-  public function __get($name) {
-
+  /**
+   * Get property value by it name if exist
+   *
+   * @param string $name
+   * @return mix Return property values
+   */
+  public function __get($name) 
+  {
     return $this->get($name);
-
   }
 
-  public function get($name) {
-
+  /**
+   * Get property value by it name if exist
+   *
+   * @param string $name
+   * @return mix Return property values
+   */
+  public function get($name) 
+  {
     return ($this->data->has($name)) ? $this->data->get($name) : null;
-
   }
 
-  public function first() {
-
-    return $this->data->first();
-
-  }
-
-  public function toArray() {
-
+  /**
+   * Convert all result properties to array
+   *
+   * @return array Return list of all result data as an array
+   */
+  public function toArray() 
+  {
     return $this->data->toArray();
-
   }
-
 }
