@@ -18,10 +18,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     $this->entity = new Entity($dummy);
   }
 
+  public function testGetListOfAllProperties() 
+  {
+    $this->assertEquals(['some_property'], $this->entity->properties);
+  }
+
   public function testGetPropertyValuesBySlug() 
   {
-    $this->assertEquals(['foo'], $this->entity->some_property);
-
     $this->assertEquals(['foo'], $this->entity->get('some_property'));
   }
 

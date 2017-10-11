@@ -20,18 +20,8 @@ class Entity
   public function __construct($data) 
   {
     $this->data = $data;
-    $this->properties = $data->keys();
-  }
 
-  /**
-   * Get property value by it slug if exist
-   *
-   * @param string $name
-   * @return array Return an array of property values
-   */
-  public function __get($name) 
-  {
-    return $this->get($name);
+    $this->properties = $data->keys()->toArray();
   }
 
   /**
