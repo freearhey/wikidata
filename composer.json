@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "freearhey/sparql": "dev-master",
+        "freearhey/sparql": "^0.0.1",
 		"tightenco/collect": "^5.4",
 		"guzzlehttp/guzzle": "^6.3"
     },
