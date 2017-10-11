@@ -11,88 +11,77 @@ composer require freearhey/wikidata
 ### Usage
 
 ```php
-$wikidata = new Wikidata;
+$wikidata = new Wikidata();
 ```
 
 #### Search
 
-Search by entity title:
+Search by entity label:
 ```php
-$result = $wikidata->search('steve jobs');
+$results = $wikidata->search('London');
+```
+
+Search by Wikidata property ID and string value:
+```php
+$results = $wikidata->searchBy('P238', 'LON');
+```
+
+Search by Wikidata property ID and entity ID:
+```php
+$results = $wikidata->searchBy('P17', 'Q146');
 ```
 
 Check if no search results
 ```php
-if($result->isEmpty()) {
-	echo 'no results';
-	die();
+if($results->isEmpty()) {
+  echo 'no results';
+  die();
 }
 ```
 
-Retrieve first entity in result list
+Retrieve first result data
 ```php
-$singleResult = $result->first();
+$singleResult = $results->first();
 ```
 
-Retrieve all results
+Get entity ID
 ```php
-$allResults = $result->get();
+$entityId = $singleResult->id; // Q84
 ```
 
-Get entity id
+Get entity label
 ```php
-$entityId = $singleResult->getEntityId(); // Q26
+$entityLabel = $singleResult->label; // London
 ```
 
-#### Entities
-
-Get single entity by id:
+Get entity aliases
 ```php
-$entities = $wikidata->entities('Q26');
+$entityAliases = $singleResult->aliases; // [ 'London, UK', 'London, United Kingdom', 'London, England' ]
 ```
 
-Get single entity with preset language (default: en)
+Get entity description
 ```php
-$entities = $wikidata->entities('Q26', 'fr');
+$entityDescription = $singleResult->description; // capital of England and the United Kingdom
 ```
 
-Get few entities by id and more languages
+#### Entity
+
+Get single entity by ID:
 ```php
-$entities = $wikidata->entities('Q26|Q106', 'en|fr|ch');
+$entity = $wikidata->get('Q26');
 ```
 
-Retrieve first entity
+Get list of all available properties for specific entity
 ```php
-$entity = $entities->first();
+$properties = $entity->properties; // array(1) { [0]=> string(11) "instance_of", ... }
 ```
 
-Get all entities
+Get value specific property
 ```php
-$entity = $entities->get();
-```
-
-Get single entity by id
-```php
-$entity = $entities->get('Q26');
-```
-
-Get entity label and description (default language: en)
-```php
-$label = $entity->getLabel(); // Steve Jobs
-$description = $entity->getDescription('de'); // US-amerikanischer Unternehmer, Mitbegründer von Apple Computer
-```
-
-Get entity property values by property id (e.g. P21) if it exists. All list properties you can find [here](https://www.wikidata.org/wiki/Wikidata:List_of_properties) 
-```php
-$gender = $entity->getPropertyValues('P21'); // array(1) { [0]=> string(4) "male" }
-```
-
-And with language property (default: en)
-```php
-$childs = $entity->getPropertyValues('P40', 'ru'); // array(1) { [0]=> string(35) "Бреннан-Джобс, Лиза" }
+$official_language = $entity->get('official_language'); // array(1) { [0]=> string(7) "English" }
 ```
 
 That's all.
 
 ### License
-Wikidata is licensed under the [MIT license](https://github.com/freearhey/wikidata/blob/master/LICENSE)
+Wikidata is licensed under the [MIT license](http://opensource.org/licenses/MIT).
