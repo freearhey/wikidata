@@ -3,8 +3,9 @@
 namespace Wikidata\Tests;
 
 use Wikidata\Wikidata;
+use PHPUnit\Framework\TestCase;
 
-class WikidataTest extends \PHPUnit_Framework_TestCase 
+class WikidataTest extends TestCase 
 {
 
   protected $wikidata;

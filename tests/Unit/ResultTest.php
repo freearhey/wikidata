@@ -4,8 +4,9 @@ namespace Wikidata\Tests;
 
 use Wikidata\Result;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\TestCase;
 
-class ResultTest extends \PHPUnit_Framework_TestCase 
+class ResultTest extends TestCase 
 {
   protected $dummy;
 
