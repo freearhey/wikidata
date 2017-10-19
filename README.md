@@ -1,4 +1,4 @@
-Wikidata
+Wikidata [![Build Status](https://travis-ci.org/freearhey/wikidata.svg?branch=master)](https://travis-ci.org/freearhey/wikidata)
 ========
 
 Wikidata provides a API for searching and retrieving data from [wikidata.org](https://www.wikidata.org).
