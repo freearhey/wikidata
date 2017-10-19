@@ -4,7 +4,7 @@
 	"keywords": ["wikidata", "client", "php"],
 	"homepage": "https://github.com/freearhey/wikidata",
 	"license": "MIT",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "authors": [
         {
             "name": "Aleksandr Statciuk",
@@ -26,5 +26,8 @@
         "psr-4": {
            "Tests\\": "tests"
         }
-    }
+    },
+	"require-dev": {
+		"phpunit/phpunit": "^6.4"
+	}
 }

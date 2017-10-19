@@ -4,8 +4,9 @@ namespace Wikidata\Tests;
 
 use Wikidata\Entity;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\TestCase;
 
-class EntityTest extends \PHPUnit_Framework_TestCase 
+class EntityTest extends TestCase
 {
   protected $entity;
 
