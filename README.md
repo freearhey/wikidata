@@ -39,29 +39,31 @@ if($results->isEmpty()) {
 }
 ```
 
+#### Result
+
 Retrieve first result data
 ```php
 $singleResult = $results->first();
 ```
 
-Get entity ID
+Get result ID
 ```php
-$entityId = $singleResult->id; // Q84
+$resultId = $singleResult->id; // Q84
 ```
 
-Get entity label
+Get result label
 ```php
-$entityLabel = $singleResult->label; // London
+$resultLabel = $singleResult->label; // London
 ```
 
-Get entity aliases
+Get result aliases
 ```php
-$entityAliases = $singleResult->aliases; // [ 'London, UK', 'London, United Kingdom', 'London, England' ]
+$resultAliases = $singleResult->aliases; // [ 'London, UK', 'London, United Kingdom', 'London, England' ]
 ```
 
-Get entity description
+Get result description
 ```php
-$entityDescription = $singleResult->description; // capital of England and the United Kingdom
+$resultDescription = $singleResult->description; // capital of England and the United Kingdom
 ```
 
 #### Entity
