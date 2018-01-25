@@ -12,11 +12,36 @@ class EntityTest extends TestCase
 
   public function setUp()
   {
-    $dummy = new Collection([
+    $this->id = 'Q26';
+    $this->label = 'Northern Ireland';
+    $this->aliases = [ 'NIR', 'UKN', 'North Ireland' ];
+    $this->description = 'region in north-west Europe, part of the United Kingdom';
+    
+    $data = new Collection([
       'some_property' => new Collection([ 'foo' ])
     ]);
 
-    $this->entity = new Entity($dummy);
+    $this->entity = new Entity($this->id, $this->label, $this->aliases, $this->description, $data);
+  }
+
+  public function testGetEntityId()
+  {
+    $this->assertEquals($this->id, $this->entity->id);
+  }
+
+  public function testGetEntityLabel()
+  {
+    $this->assertEquals($this->label, $this->entity->label);
+  }
+
+  public function testGetEntityAliases()
+  {
+    $this->assertEquals($this->aliases, $this->entity->aliases);
+  }
+
+  public function testGetEntityDescription()
+  {
+    $this->assertEquals($this->description, $this->entity->description);
   }
 
   public function testGetListOfAllProperties() 

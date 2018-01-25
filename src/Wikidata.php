@@ -132,15 +132,86 @@ class Wikidata {
             ->service('wikibase:label', 'bd:serviceParam', 'wikibase:language', '"'. $this->language .'"')
             ->filter('LANG(?property) = "en"');
 
-        // dd($queryBuilder->format());
-
         $queryExecuter = new QueryExecuter(self::SPARQL_ENDPOINT);   
 
         $results = $queryExecuter->execute($queryBuilder->getSPARQL()); 
 
         $data = $this->formatProps($results);
 
-        return new Entity($data);
+        $snippet = $this->getEntitySnippet($entityId);
+
+        return new Entity($snippet->id, $snippet->label, $snippet->aliases, $snippet->description, $data);
+    }
+
+    /**
+     * Get entity snippet by ID
+     * 
+     * @param string $entityId Wikidata entity ID (e.g.: Q11696)
+     * 
+     * @return \Wikidata\Result|null Return entity snippet, including id, label, aliases and description
+     */
+    private function getEntitySnippet($entityId)
+    {
+        $client = new Client();    
+
+        $response = $client->get(self::API_ENDPOINT, [
+            'query' => [
+                'action' => 'wbgetentities',
+                'format' => $this->format,
+                'languages' => $this->language,
+                'props' => 'labels|aliases|descriptions',
+                'ids' => $entityId,
+            ]
+        ]);
+
+        $results = json_decode($response->getBody());
+
+        return $this->formatGetEntitySnippet($results);
+    }
+
+    /**
+     * Convert array of getEntitySnippet() results to \Wikidata\Result
+     * 
+     * @param array $results
+     * 
+     * @return \Wikidata\Result
+     */
+    private function formatGetEntitySnippet($results)
+    {
+        $snippet = [
+            'id' => null,
+            'label' => null,
+            'aliases' => [],
+            'description' => null,
+        ];
+
+        if(!property_exists($results, 'error')) {  
+
+            $collection = collect($results->entities);
+
+            $item = $collection->first();
+
+            if($item) {
+
+                $lang = $this->language;
+
+                $aliases = [];
+
+                if(property_exists($item, 'aliases')) {
+                    $aliases = array_map(function($alias) {
+                        return $alias->value;
+                    }, $item->aliases->$lang);
+                }
+
+                $snippet['id'] = property_exists($item, 'id') ? $item->id : null;
+                $snippet['label'] = property_exists($item, 'labels') ? $item->labels->$lang->value : null;
+                $snippet['aliases'] = $aliases;
+                $snippet['description'] = property_exists($item, 'descriptions') ? $item->descriptions->$lang->value : null;
+
+            }
+        }
+
+        return new Result(collect($snippet));
     }
 
     /**
