@@ -5,6 +5,31 @@ namespace Wikidata;
 class Entity
 {
   /**
+   * @var string Entity Id
+   */
+  public $id;
+  
+  /**
+   * @var string Entity label
+   */
+  public $label;
+  
+  /**
+   * @var string[] Array of all entity aliases
+   */
+  public $aliases = [];
+  
+  /**
+   * @var string Entity description
+   */
+  public $description;
+
+  /**
+   * @var boolean Status of entity
+   */
+  public $exists = true;
+
+  /**
    * @var string[] Array of all entity properties
    */
   public $properties = [];
@@ -17,10 +42,17 @@ class Entity
   /**
    * @param \Illuminate\Support\Collection $data
    */
-  public function __construct($data) 
+  public function __construct($id, $label, $aliases, $description, $data) 
   {
-    $this->data = $data;
+    if(!$id) {
+      $this->exists = false;
+    }
 
+    $this->id = $id;
+    $this->label = $label;
+    $this->aliases = $aliases;
+    $this->description = $description;
+    $this->data = $data;
     $this->properties = $data->keys()->toArray();
   }
 

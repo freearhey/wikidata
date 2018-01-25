@@ -73,6 +73,26 @@ Get single entity by ID:
 $entity = $wikidata->get('Q26');
 ```
 
+Get entity ID
+```php
+$entityId = $entity->id; // Q26
+```
+
+Get entity label
+```php
+$entityLabel = $entity->label; // Northern Ireland
+```
+
+Get entity aliases
+```php
+$entityAliases = $entity->aliases; // [ 'NIR', 'UKN', 'North Ireland' ]
+```
+
+Get entity description
+```php
+$entityDescription = $entity->description; // region in north-west Europe, part of the United Kingdom
+```
+
 Get list of all available properties for specific entity
 ```php
 $properties = $entity->properties; // array(1) { [0]=> string(11) "instance_of", ... }
