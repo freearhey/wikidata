@@ -62,4 +62,12 @@ class WikidataTest extends TestCase
     $this->assertInstanceOf('Wikidata\Entity', $entity);
   }
 
+  public function testGetEntityWithWrongId() 
+  {
+    $entity = $this->wikidata->get('test');
+
+    $this->assertInstanceOf('Wikidata\Entity', $entity);
+    $this->assertEquals(false, $entity->exists);
+  }
+
 }
