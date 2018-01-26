@@ -197,16 +197,16 @@ class Wikidata {
 
                 $aliases = [];
 
-                if(property_exists($item, 'aliases')) {
+                if(property_exists($item, 'aliases') && property_exists($item->aliases, $lang)) {
                     $aliases = array_map(function($alias) {
                         return $alias->value;
                     }, $item->aliases->$lang);
                 }
 
                 $snippet['id'] = property_exists($item, 'id') ? $item->id : null;
-                $snippet['label'] = property_exists($item, 'labels') ? $item->labels->$lang->value : null;
+                $snippet['label'] = property_exists($item, 'labels') && property_exists($item->labels, $lang) ? $item->labels->$lang->value : null;
                 $snippet['aliases'] = $aliases;
-                $snippet['description'] = property_exists($item, 'descriptions') ? $item->descriptions->$lang->value : null;
+                $snippet['description'] = property_exists($item, 'descriptions') && property_exists($item->descriptions, $lang) ? $item->descriptions->$lang->value : null;
 
             }
         }
