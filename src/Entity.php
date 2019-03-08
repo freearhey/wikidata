@@ -53,10 +53,10 @@ class Entity
 
   private function formatData($data)
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $data[0]['item']['value']);
-    $label = $data[0]['itemLabel']['value'];
-    $description = $data[0]['itemDescription']['value'];
-    $aliases = explode(', ', $data[0]['itemAltLabel']['value']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $data[0]['item']);
+    $label = $data[0]['itemLabel'];
+    $description = $data[0]['itemDescription'];
+    $aliases = explode(', ', $data[0]['itemAltLabel']);
 
     $collection = collect($data);
     $properties = $collection->mapWithKeys(function($prop) {

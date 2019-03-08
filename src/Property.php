@@ -33,9 +33,9 @@ class Property
 
   private function formatData($data)
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $data['prop']['value']);
-    $label = $data['propLabel']['value'];
-    $value = $data['propValues']['value'];
+    $id = str_replace("http://www.wikidata.org/entity/", "", $data['prop']);
+    $label = $data['propLabel'];
+    $value = $data['propValue'];
 
     return [
       'id' => $id,

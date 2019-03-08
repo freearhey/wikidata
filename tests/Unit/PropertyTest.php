@@ -15,39 +15,13 @@ class PropertyTest extends TestCase
   public function setUp()
   {
     $this->dummy = [
-      'item' => [
-        'type' => 'uri',
-        'value' => 'http://www.wikidata.org/entity/Q11019'
-      ],
-      'prop' => [
-        'type' => 'uri',
-        'value' => 'http://www.wikidata.org/entity/P101'
-      ],
-      'itemLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'máquina'
-      ],
-      'itemDescription' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado'
-      ],
-      'itemAltLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'maquina'
-      ],
-      'propLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'campo de trabajo'
-      ],
-      'valueLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'ingeniería'
-      ]
+      'item' => 'http://www.wikidata.org/entity/Q11019',
+      'prop' => 'http://www.wikidata.org/entity/P101',
+      'itemLabel' => 'máquina',
+      'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
+      'itemAltLabel' => 'maquina',
+      'propLabel' => 'campo de trabajo',
+      'valueLabel' => 'ingeniería'
     ];
 
     $this->property = new Property($this->dummy);
@@ -55,18 +29,18 @@ class PropertyTest extends TestCase
 
   public function testGetPropertyId()
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']['value']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']);
 
     $this->assertEquals($id, $this->property->id);
   }
 
   public function testGetPropertyLabel()
   {
-    $this->assertEquals($this->dummy['propLabel']['value'], $this->property->label);
+    $this->assertEquals($this->dummy['propLabel'], $this->property->label);
   }
 
   public function testGetPropertyValue()
   {
-    $this->assertEquals($this->dummy['propValues']['value'], $this->property->value);
+    $this->assertEquals($this->dummy['propValues'], $this->property->value);
   }
 }

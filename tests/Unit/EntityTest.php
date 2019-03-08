@@ -18,39 +18,13 @@ class EntityTest extends TestCase
   public function setUp()
   {
     $this->dummy = [
-      'item' => [
-        'type' => 'uri',
-        'value' => 'http://www.wikidata.org/entity/Q11019'
-      ],
-      'prop' => [
-        'type' => 'uri',
-        'value' => 'http://www.wikidata.org/entity/P101'
-      ],
-      'itemLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'máquina'
-      ],
-      'itemDescription' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado'
-      ],
-      'itemAltLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'maquina'
-      ],
-      'propLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'campo de trabajo'
-      ],
-      'valueLabel' => [
-        'xml:lang' => 'es',
-        'type' => 'literal',
-        'value' => 'ingeniería'
-      ]
+      'item' => 'http://www.wikidata.org/entity/Q11019',
+      'prop' => 'http://www.wikidata.org/entity/P101',
+      'itemLabel' => 'máquina',
+      'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
+      'itemAltLabel' => 'maquina',
+      'propLabel' => 'campo de trabajo',
+      'valueLabel' => 'ingeniería'
     ];
 
     $this->lang = 'es';
@@ -60,7 +34,7 @@ class EntityTest extends TestCase
 
   public function testGetEntityId()
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['item']['value']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['item']);
 
     $this->assertEquals($id, $this->entity->id);
   }
@@ -72,19 +46,19 @@ class EntityTest extends TestCase
 
   public function testGetEntityLabel()
   {
-    $this->assertEquals($this->dummy['itemLabel']['value'], $this->entity->label);
+    $this->assertEquals($this->dummy['itemLabel'], $this->entity->label);
   }
 
   public function testGetEntityAliases()
   {
-    $aliases = explode(', ', $this->dummy['itemAltLabel']['value']);
+    $aliases = explode(', ', $this->dummy['itemAltLabel']);
 
     $this->assertEquals($aliases, $this->entity->aliases);
   }
 
   public function testGetEntityDescription()
   {
-    $this->assertEquals($this->dummy['itemDescription']['value'], $this->entity->description);
+    $this->assertEquals($this->dummy['itemDescription'], $this->entity->description);
   }
 
   public function testGetEntityProperties() 
