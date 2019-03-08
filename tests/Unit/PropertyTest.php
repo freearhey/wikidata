@@ -2,18 +2,15 @@
 
 namespace Wikidata\Tests;
 
-use Wikidata\Entity;
 use Wikidata\Property;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
-class EntityTest extends TestCase
+class PropertyTest extends TestCase
 {
-  protected $lang = 'en';
-
   protected $dummy;
 
-  protected $entity;
+  protected $property;
 
   public function setUp()
   {
@@ -53,45 +50,23 @@ class EntityTest extends TestCase
       ]
     ];
 
-    $this->lang = 'es';
-
-    $this->entity = new Entity([$this->dummy], $this->lang);
+    $this->property = new Property($this->dummy);
   }
 
-  public function testGetEntityId()
+  public function testGetPropertyId()
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['item']['value']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']['value']);
 
-    $this->assertEquals($id, $this->entity->id);
+    $this->assertEquals($id, $this->property->id);
   }
 
-  public function testGetEntityLang()
+  public function testGetPropertyLabel()
   {
-    $this->assertEquals($this->lang, $this->entity->lang);
+    $this->assertEquals($this->dummy['propLabel']['value'], $this->property->label);
   }
 
-  public function testGetEntityLabel()
+  public function testGetPropertyValue()
   {
-    $this->assertEquals($this->dummy['itemLabel']['value'], $this->entity->label);
-  }
-
-  public function testGetEntityAliases()
-  {
-    $aliases = explode(', ', $this->dummy['itemAltLabel']['value']);
-
-    $this->assertEquals($aliases, $this->entity->aliases);
-  }
-
-  public function testGetEntityDescription()
-  {
-    $this->assertEquals($this->dummy['itemDescription']['value'], $this->entity->description);
-  }
-
-  public function testGetEntityProperties() 
-  {
-    $property = new Property($this->dummy);
-    $properties = collect([ $property->id => $property ]);
-
-    $this->assertEquals($properties, $this->entity->properties);
+    $this->assertEquals($this->dummy['propValues']['value'], $this->property->value);
   }
 }

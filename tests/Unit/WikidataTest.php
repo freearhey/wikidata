@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class WikidataTest extends TestCase 
 {
-
   protected $wikidata;
 
   public function setUp()
@@ -15,22 +14,22 @@ class WikidataTest extends TestCase
     $this->wikidata = new Wikidata();
   }
 
-  public function testChangeLanguage() 
-  {
-    $wikidata = new Wikidata('fr');
-
-    $this->assertEquals('fr', $wikidata->language);
-  }
-
   public function testSearchByTerm() 
   {
-    $results = $this->wikidata->search('car');
+    $results = $this->wikidata->search('London');
 
     $this->assertInstanceOf('Illuminate\Support\Collection', $results);
 
     $result = $results->first();
 
-    $this->assertInstanceOf('Wikidata\Result', $result);
+    $this->assertInstanceOf('Wikidata\SearchResult', $result);
+  }
+
+  public function testSearchResultIsEmpty() 
+  {
+    $results = $this->wikidata->search('asdfgh');
+
+    $this->assertEquals(true, $results->isEmpty());
   }
 
   public function testSearchByPropertyIdAndStringValue() 
@@ -41,7 +40,7 @@ class WikidataTest extends TestCase
 
     $result = $results->first();
 
-    $this->assertInstanceOf('Wikidata\Result', $result);
+    $this->assertInstanceOf('Wikidata\SearchResult', $result);
   }
 
   public function testSearchByPropertyIdAndEntityId() 
@@ -52,12 +51,12 @@ class WikidataTest extends TestCase
 
     $result = $results->first();
 
-    $this->assertInstanceOf('Wikidata\Result', $result);
+    $this->assertInstanceOf('Wikidata\SearchResult', $result);
   }
 
-  public function testGetEntityWithAllPropertiesById() 
+  public function testGetEntityById() 
   {
-    $entity = $this->wikidata->get('Q76');
+    $entity = $this->wikidata->get('Q11019', 'es');
 
     $this->assertInstanceOf('Wikidata\Entity', $entity);
   }
@@ -66,8 +65,7 @@ class WikidataTest extends TestCase
   {
     $entity = $this->wikidata->get('test');
 
-    $this->assertInstanceOf('Wikidata\Entity', $entity);
-    $this->assertEquals(false, $entity->exists);
+    $this->assertEquals(null, $entity);
   }
 
 }
