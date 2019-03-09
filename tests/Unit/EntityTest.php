@@ -3,64 +3,69 @@
 namespace Wikidata\Tests;
 
 use Wikidata\Entity;
+use Wikidata\Property;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
 class EntityTest extends TestCase
 {
+  protected $lang = 'en';
+
+  protected $dummy;
+
   protected $entity;
 
   public function setUp()
   {
-    $this->id = 'Q26';
-    $this->label = 'Northern Ireland';
-    $this->aliases = [ 'NIR', 'UKN', 'North Ireland' ];
-    $this->description = 'region in north-west Europe, part of the United Kingdom';
-    
-    $data = new Collection([
-      'some_property' => new Collection([ 'foo' ])
-    ]);
+    $this->dummy = [
+      'item' => 'http://www.wikidata.org/entity/Q11019',
+      'itemLabel' => 'máquina',
+      'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
+      'itemAltLabel' => 'maquina',
+      'prop' => 'http://www.wikidata.org/entity/P101',
+      'propLabel' => 'campo de trabajo',
+      'propValue' => 'ingeniería'
+    ];
 
-    $this->entity = new Entity($this->id, $this->label, $this->aliases, $this->description, $data);
+    $this->lang = 'es';
+
+    $this->entity = new Entity([$this->dummy], $this->lang);
   }
 
   public function testGetEntityId()
   {
-    $this->assertEquals($this->id, $this->entity->id);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['item']);
+
+    $this->assertEquals($id, $this->entity->id);
+  }
+
+  public function testGetEntityLang()
+  {
+    $this->assertEquals($this->lang, $this->entity->lang);
   }
 
   public function testGetEntityLabel()
   {
-    $this->assertEquals($this->label, $this->entity->label);
+    $this->assertEquals($this->dummy['itemLabel'], $this->entity->label);
   }
 
   public function testGetEntityAliases()
   {
-    $this->assertEquals($this->aliases, $this->entity->aliases);
+    $aliases = explode(', ', $this->dummy['itemAltLabel']);
+
+    $this->assertEquals($aliases, $this->entity->aliases);
   }
 
   public function testGetEntityDescription()
   {
-    $this->assertEquals($this->description, $this->entity->description);
+    $this->assertEquals($this->dummy['itemDescription'], $this->entity->description);
   }
 
-  public function testGetListOfAllProperties() 
+  public function testGetEntityProperties() 
   {
-    $this->assertEquals(['some_property'], $this->entity->properties);
-  }
+    $property = new Property($this->dummy);
+    $properties = collect([ $property->id => $property ]);
 
-  public function testGetPropertyValuesBySlug() 
-  {
-    $this->assertEquals(['foo'], $this->entity->get('some_property'));
-  }
-
-  public function testCheckBySlugIfPropertyExist() 
-  {
-    $this->assertEquals(true, $this->entity->has('some_property'));
-  }
-
-  public function testGetAllEntityDataAsArray() 
-  {
-    $this->assertEquals([ 'some_property' => [ 'foo' ] ], $this->entity->toArray());
+    $this->assertEquals($properties, $this->entity->properties);
   }
 }
