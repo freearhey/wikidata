@@ -17,11 +17,11 @@ class Wikidata {
      * 
      * @param string $query
      * @param string $lang Language (default: en) 
-     * @param string $limit Max count of returning items (default: 50)
+     * @param string $limit Max count of returning items (default: 10)
      * 
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
-    public function search($query, $lang = 'en', $limit = 50) 
+    public function search($query, $lang = 'en', $limit = 10) 
     {    
         $client = new Client(); 
 
@@ -57,11 +57,11 @@ class Wikidata {
      * @param string $property Wikidata ID of property (e.g.: P646)
      * @param string $value String value of property or Wikidata entity ID (e.g.: Q11696)
      * @param string $lang Language (default: en)
-     * @param string $limit Max count of returning items (default: 50)
+     * @param string $limit Max count of returning items (default: 10)
      * 
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
-    public function searchBy($property, $value = null, $lang = 'en', $limit = 50) 
+    public function searchBy($property, $value = null, $lang = 'en', $limit = 10) 
     {
         if(!is_pid($property)) {
             throw new Exception("First argument in searchBy() must be a valid Wikidata property ID (e.g.: P646).", 1);
