@@ -1,109 +1,171 @@
-Wikidata [![Build Status](https://travis-ci.org/freearhey/wikidata.svg?branch=master)](https://travis-ci.org/freearhey/wikidata)
-========
+[![wikidata](https://raw.githubusercontent.com/maxlath/wikidata-cli/master/assets/wikidata_logo_alone.jpg)](https://wikidata.org)
+
+
+# Wikidata [![Build Status](https://travis-ci.org/freearhey/wikidata.svg?branch=master)](https://travis-ci.org/freearhey/wikidata)
 
 Wikidata provides a API for searching and retrieving data from [wikidata.org](https://www.wikidata.org).
 
-### Installation
+## Installation
+
 ```sh
 composer require freearhey/wikidata
 ```
 
-### Usage
+## Usage
+
+First we need to create an instance of `Wikidata` class and save it to some variable, like this:
 
 ```php
 $wikidata = new Wikidata();
 ```
 
-#### Search
+After that we can use one of the available methods to access the Wikidata database:
 
-Search by entity label:
 ```php
-$results = $wikidata->search('London');
+$wikidata->search('London');
 ```
 
-Search by Wikidata property ID and string value:
+## Available Methods
+
+### `search()`
+
+The `search()` method give you a way to find Wikidata entity by it label.
+
 ```php
-$results = $wikidata->searchBy('P238', 'LON');
+$results = $wikidata->search($query, $lang, $limit);
 ```
 
-Search by Wikidata property ID and entity ID:
+Arguments:
+
+- `$query`: term to search (required) 
+- `$lang`: specify the results language (default: 'en')
+- `$limit`: set a custom limit (default: 10)
+
+Example:
+
 ```php
-$results = $wikidata->searchBy('P17', 'Q146');
+$results = $wikidata->search('car', 'fr', 5);
 ```
 
-Check if no search results
+The `search()` method always returns `Illuminate\Support\Collection` class with results. This means you can use all the [methods available](https://laravel.com/docs/5.6/collections#available-methods) in Laravel's Collections.
+
+### `searchBy()`
+
+The `searchBy` help you to find Wikidata entities by it properties value. 
+
 ```php
-if($results->isEmpty()) {
-  echo 'no results';
-  die();
-}
+$results = $wikidata->searchBy($propId, $entityId, $lang, $limit);
 ```
 
-#### Result
+Arguments:
 
-Retrieve first result data
+- `$propId`: id of the property by which to search (required)
+- `$entityId`: id of the entity (required) 
+- `$lang`: specify the results language (default: 'en')
+- `$limit`: set a custom limit (default: 10)
+
+Example:
+
 ```php
-$singleResult = $results->first();
+// List of people who born in city Pomona, US
+$results = $wikidata->searchBy('P19', 'Q486868');
+
+/*
+  Collection {
+    #items: array:10 [
+      0 => SearchResult {
+        id: "Q22254338"
+        lang: "en"
+        label: "Coco Velvett"
+        description: "American pornographic actress"
+        aliases: array:2 []
+      }
+      1 => SearchResult {
+        id: "Q24176246"
+        lang: "en"
+        label: "Donald D. Engen"
+        description: null
+        aliases: []
+      }
+      ...
+    ]
+  }
+*/
 ```
 
-Get result ID
+The `searchBy()` method always returns `Illuminate\Support\Collection` class with results. This means you can use all the [methods available](https://laravel.com/docs/5.6/collections#available-methods) in Laravel's Collections.
+
+### `get()`
+
+The `get()` returns Wikidata entity by specified ID.
+
 ```php
-$resultId = $singleResult->id; // Q84
+$entity = $wikidata->get($entityId, $lang);
 ```
 
-Get result label
+Arguments:
+
+- `$entityId`: id of the entity (required) 
+- `$lang`: specify the results language (default: 'en')
+
+Example:
+
 ```php
-$resultLabel = $singleResult->label; // London
+// Get all data about Steve Jobs
+$entity = $wikidata->get('Q19837');
+
+/*
+  Entity {
+    id: "Q19837"
+    lang: "en"
+    label: "Steve Jobs"
+    aliases: array:2 [
+      0 => "Steven Jobs"
+      1 => "Steven Paul Jobs"
+    ]
+    description: "American entrepreneur and co-founder of Apple Inc."
+    properties: Collection {
+      #items: array:98 [
+        "P18" => Property {
+          id: "P18"
+          label: "image"
+          value: "http://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Jobs%20Headshot%202010-CROP2.jpg"
+        }
+        ...
+      ]
+    }
+  }
+*/
+
+
+// List of all properties as array
+$properties = $entity->properties->toArray();
+
+/*
+  [
+    "P18" => Property {
+      id: "P18"
+      label: "image"
+      value: "http://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Jobs%20Headshot%202010-CROP2.jpg"
+    },
+    "P19" => Property {
+      id: "P19"
+      label: "place of birth"
+      value: "San Francisco"
+    },
+    ...
+  ]
+ */
 ```
 
-Get result aliases
-```php
-$resultAliases = $singleResult->aliases; // [ 'London, UK', 'London, United Kingdom', 'London, England' ]
+### Testing
+
+```sh
+vendor/bin/phpunit
 ```
 
-Get result description
-```php
-$resultDescription = $singleResult->description; // capital of England and the United Kingdom
-```
-
-#### Entity
-
-Get single entity by ID:
-```php
-$entity = $wikidata->get('Q26');
-```
-
-Get entity ID
-```php
-$entityId = $entity->id; // Q26
-```
-
-Get entity label
-```php
-$entityLabel = $entity->label; // Northern Ireland
-```
-
-Get entity aliases
-```php
-$entityAliases = $entity->aliases; // [ 'NIR', 'UKN', 'North Ireland' ]
-```
-
-Get entity description
-```php
-$entityDescription = $entity->description; // region in north-west Europe, part of the United Kingdom
-```
-
-Get list of all available properties for specific entity
-```php
-$properties = $entity->properties; // array(1) { [0]=> string(11) "instance_of", ... }
-```
-
-Get value specific property
-```php
-$official_language = $entity->get('official_language'); // array(1) { [0]=> string(7) "English" }
-```
-
-That's all.
+### Contribution
+If you find a bug or want to contribute to the code or documentation, you can help by submitting an [issue](https://github.com/freearhey/wikidata/issues) or a [pull request](https://github.com/freearhey/wikidata/pulls).
 
 ### License
 Wikidata is licensed under the [MIT license](http://opensource.org/licenses/MIT).
