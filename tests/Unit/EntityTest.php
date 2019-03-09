@@ -19,12 +19,12 @@ class EntityTest extends TestCase
   {
     $this->dummy = [
       'item' => 'http://www.wikidata.org/entity/Q11019',
-      'prop' => 'http://www.wikidata.org/entity/P101',
       'itemLabel' => 'máquina',
       'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
       'itemAltLabel' => 'maquina',
+      'prop' => 'http://www.wikidata.org/entity/P101',
       'propLabel' => 'campo de trabajo',
-      'valueLabel' => 'ingeniería'
+      'propValue' => 'ingeniería'
     ];
 
     $this->lang = 'es';

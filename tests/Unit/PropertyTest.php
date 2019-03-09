@@ -16,12 +16,12 @@ class PropertyTest extends TestCase
   {
     $this->dummy = [
       'item' => 'http://www.wikidata.org/entity/Q11019',
-      'prop' => 'http://www.wikidata.org/entity/P101',
       'itemLabel' => 'máquina',
       'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
       'itemAltLabel' => 'maquina',
+      'prop' => 'http://www.wikidata.org/entity/P101',
       'propLabel' => 'campo de trabajo',
-      'valueLabel' => 'ingeniería'
+      'propValue' => 'ingeniería'
     ];
 
     $this->property = new Property($this->dummy);
@@ -41,6 +41,6 @@ class PropertyTest extends TestCase
 
   public function testGetPropertyValue()
   {
-    $this->assertEquals($this->dummy['propValues'], $this->property->value);
+    $this->assertEquals($this->dummy['propValue'], $this->property->value);
   }
 }
