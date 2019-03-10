@@ -16,14 +16,14 @@ composer require freearhey/wikidata
 First we need to create an instance of `Wikidata` class and save it to some variable, like this:
 
 ```php
+require_once('vendor/autoload.php');
+
+use Wikidata\Wikidata;
+
 $wikidata = new Wikidata();
 ```
 
-After that we can use one of the available methods to access the Wikidata database:
-
-```php
-$wikidata->search('London');
-```
+after that we can use one of the available methods to access the Wikidata database.
 
 ## Available Methods
 
@@ -45,6 +45,30 @@ Example:
 
 ```php
 $results = $wikidata->search('car', 'fr', 5);
+
+/*
+  Collection {
+    #items: array:5 [
+      0 => SearchResult {
+        id: "Q1043"
+        lang: "fr"
+        label: "Carl von Linné"
+        description: "naturaliste suédois (1707-1778)"
+        aliases: []
+      }
+      1 => SearchResult {
+        id: "Q14599311"
+        lang: "fr"
+        label: "Apoptose"
+        description: "Mort programmée des cellules"
+        aliases: array:1 [
+          0 => "Caryolyse"
+        ]
+      }
+      ...
+    ]
+  }
+*/
 ```
 
 The `search()` method always returns `Illuminate\Support\Collection` class with results. This means you can use all the [methods available](https://laravel.com/docs/5.6/collections#available-methods) in Laravel's Collections.
