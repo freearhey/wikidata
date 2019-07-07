@@ -12,7 +12,7 @@ class SearchResultTest extends TestCase
 
   protected $result;
 
-  public function setUp()
+  public function setUp(): void
   {
     $this->dummy = [
       'id' => 'Q1111',

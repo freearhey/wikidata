@@ -10,7 +10,7 @@ class WikidataTest extends TestCase
 {
   protected $wikidata;
 
-  public function setUp()
+  public function setUp(): void
   {
     $this->wikidata = new Wikidata();
   }

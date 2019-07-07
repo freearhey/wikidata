@@ -12,7 +12,7 @@ class PropertyTest extends TestCase
 
   protected $property;
 
-  public function setUp()
+  public function setUp(): void
   {
     $this->dummy = [
       'item' => 'http://www.wikidata.org/entity/Q11019',
