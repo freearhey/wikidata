@@ -19,9 +19,9 @@ class PropertyTest extends TestCase
       'itemLabel' => 'máquina',
       'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
       'itemAltLabel' => 'maquina',
-      'prop' => 'http://www.wikidata.org/entity/P101',
-      'propLabel' => 'campo de trabajo',
-      'propValue' => 'ingeniería'
+      'property' => 'http://www.wikidata.org/entity/P101',
+      'propertyLabel' => 'campo de trabajo',
+      'propertyValue' => 'ingeniería'
     ];
 
     $this->property = new Property($this->dummy);
@@ -29,18 +29,18 @@ class PropertyTest extends TestCase
 
   public function testGetPropertyId()
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['property']);
 
     $this->assertEquals($id, $this->property->id);
   }
 
   public function testGetPropertyLabel()
   {
-    $this->assertEquals($this->dummy['propLabel'], $this->property->label);
+    $this->assertEquals($this->dummy['propertyLabel'], $this->property->label);
   }
 
   public function testGetPropertyValue()
   {
-    $this->assertEquals($this->dummy['propValue'], $this->property->value);
+    $this->assertEquals($this->dummy['propertyValue'], $this->property->value);
   }
 }

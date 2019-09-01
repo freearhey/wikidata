@@ -41,14 +41,14 @@ class Property
   {
     $parent = $label = $id = $value = null;
     if (!isset($data['qualifier']) || !$data['qualifier']) {
-      $id = $this->normalizeId($data['prop']);
+      $id = $this->normalizeId($data['property']);
       $label = $data['propertyLabel'];
       $value = $data['propertyValue'];
     } else {
       $id = $this->normalizeId($data['qualifier']);
       $label = $data['qualifierLabel'];
       $value = $data['qualifierValue'];
-      $parent = $this->normalizeId($data['prop']);
+      $parent = $this->normalizeId($data['property']);
     }
 
     return [
