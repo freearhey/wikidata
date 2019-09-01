@@ -110,12 +110,12 @@ class Wikidata
             throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?property ?propertyLabel ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue 
+        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue 
         { 
             VALUES (?item) {(wd:' . $entityId . ')}
-            ?item ?property ?statement . 
+            ?item ?prop ?statement . 
             ?statement ?ps ?propertyValue . 
-            ?property wikibase:claim ?property . 
+            ?property wikibase:claim ?prop . 
             ?property wikibase:statementProperty ?ps . 
             OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . } 
             SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . '" } 
@@ -124,8 +124,9 @@ class Wikidata
         $client = new SparqlClient();
 
         $data = $client->execute($query);
-
         if (!$data) {
+            var_dump($data);
+            var_dump($query);
             return null;
         }
 

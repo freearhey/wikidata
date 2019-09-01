@@ -38,6 +38,7 @@ class Entity
 
   /**
    * @param \Illuminate\Support\Collection $data
+   * @param string $lang the language of this Entity's labels
    */
   public function __construct($data, $lang) 
   {
