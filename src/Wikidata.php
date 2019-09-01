@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Wikidata;
 
@@ -8,8 +8,9 @@ use Wikidata\Entity;
 use Wikidata\SearchResult;
 use Wikidata\SparqlClient;
 
-class Wikidata {
-	
+class Wikidata
+{
+
     const API_ENDPOINT = 'https://www.wikidata.org/w/api.php';
 
     /**
@@ -21,9 +22,9 @@ class Wikidata {
      * 
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
-    public function search($query, $lang = 'en', $limit = 10) 
-    {    
-        $client = new Client(); 
+    public function search($query, $lang = 'en', $limit = 10)
+    {
+        $client = new Client();
 
         $response = $client->get(self::API_ENDPOINT, [
             'query' => [
@@ -44,7 +45,7 @@ class Wikidata {
 
         $collection = collect($data);
 
-        $output = $collection->map(function($item) use ($lang) {
+        $output = $collection->map(function ($item) use ($lang) {
             return new SearchResult($item, $lang, 'api');
         });
 
@@ -61,34 +62,34 @@ class Wikidata {
      * 
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
-    public function searchBy($property, $value = null, $lang = 'en', $limit = 10) 
+    public function searchBy($property, $value = null, $lang = 'en', $limit = 10)
     {
-        if(!is_pid($property)) {
+        if (!is_pid($property)) {
             throw new Exception("First argument in searchBy() must be a valid Wikidata property ID (e.g.: P646).", 1);
         }
 
-        if(!$value) {
+        if (!$value) {
             throw new Exception("Second argument in searchBy() must be a string or a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $subject = is_qid($value) ? 'wd:'.$value : '"'.$value.'"';
+        $subject = is_qid($value) ? 'wd:' . $value : '"' . $value . '"';
 
         $query = '
             SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription WHERE {
-                ?item wdt:'.$property.' '.$subject.'.
+                ?item wdt:' . $property . ' ' . $subject . '.
                 SERVICE wikibase:label {
-                    bd:serviceParam wikibase:language "'. $lang .'".
+                    bd:serviceParam wikibase:language "' . $lang . '".
                 }
-            } LIMIT '.$limit.'
+            } LIMIT ' . $limit . '
         ';
 
         $client = new SparqlClient();
 
-        $data = $client->execute( $query ); 
+        $data = $client->execute($query);
 
         $collection = collect($data);
 
-        $output = $collection->map(function($item) use ($lang) {
+        $output = $collection->map(function ($item) use ($lang) {
             return new SearchResult($item, $lang, 'sparql');
         });
 
@@ -103,33 +104,29 @@ class Wikidata {
      * 
      * @return \Wikidata\Entity Return entity
      */
-    public function get($entityId, $lang = 'en') 
+    public function get($entityId, $lang = 'en')
     {
-        if(!is_qid($entityId)) {
+        if (!is_qid($entityId)) {
             throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $query = '
-            SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propLabel (GROUP_CONCAT(DISTINCT ?valueLabel;separator=", ") AS ?propValue) WHERE { 
-                  BIND(wd:'.$entityId.' AS ?item).
-                  ?prop wikibase:directClaim ?p .
-                  ?item ?p ?value .
-                  SERVICE wikibase:label { 
-                    bd:serviceParam wikibase:language "'.$lang.'". 
-                    ?value rdfs:label ?valueLabel . 
-                    ?prop rdfs:label ?propLabel . 
-                    ?item rdfs:label ?itemLabel . 
-                    ?item skos:altLabel ?itemAltLabel . 
-                    ?item schema:description ?itemDescription . 
-                  }    
-                } group by ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propLabel
-        '; 
+        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue 
+        { 
+            VALUES (?item) {(wd:' . $entityId . ')}
+            ?item ?prop ?statement . 
+            ?statement ?ps ?propertyValue . 
+            ?property wikibase:claim ?prop . 
+            ?property wikibase:statementProperty ?ps . 
+            OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . } 
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . '" } 
+        }';
 
         $client = new SparqlClient();
 
-        $data = $client->execute($query); 
-
-        if(!$data) {
+        $data = $client->execute($query);
+        if (!$data) {
+            var_dump($data);
+            var_dump($query);
             return null;
         }
 

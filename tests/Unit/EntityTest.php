@@ -23,8 +23,8 @@ class EntityTest extends TestCase
       'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
       'itemAltLabel' => 'maquina',
       'prop' => 'http://www.wikidata.org/entity/P101',
-      'propLabel' => 'campo de trabajo',
-      'propValue' => 'ingeniería'
+      'propertyLabel' => 'campo de trabajo',
+      'propertyValue' => 'ingeniería'
     ];
 
     $this->lang = 'es';
