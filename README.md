@@ -144,38 +144,41 @@ $entity = $wikidata->get('Q19837');
     lang: "en"
     label: "Steve Jobs"
     aliases: array:2 [
-      0 => "Steven Jobs"
+      0 => "Steven Jobs",
       1 => "Steven Paul Jobs"
     ]
     description: "American entrepreneur and co-founder of Apple Inc."
-    properties: Collection {
-      #items: array:98 [
-        "P18" => Property {
-          id: "P18"
-          label: "image"
-          value: "http://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Jobs%20Headshot%202010-CROP2.jpg"
-        }
-        ...
-      ]
-    }
+    properties: Collection { ... }
   }
 */
 
 
-// List of all properties as array
+// List of all properties as an array
 $properties = $entity->properties->toArray();
 
 /*
   [
-    "P18" => Property {
-      id: "P18"
-      label: "image"
-      value: "http://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Jobs%20Headshot%202010-CROP2.jpg"
-    },
-    "P19" => Property {
-      id: "P19"
-      label: "place of birth"
-      value: "San Francisco"
+    "P1006" => Property {
+      id: "P1006"
+      label: "NTA ID"
+      values: Collection {
+        #items: array:6 [
+          0 => Value {
+            id: "Q5593916"
+            label: "Grammy Trustees Award"
+            qualifiers: Collection {
+              #items: array:1 [
+                0 => Qualifier {
+                  id: "P585"
+                  label: "point in time"
+                  value: "2012-01-01T00:00:00Z"
+                }
+              ]
+            }
+          },
+          ...
+        ]
+      }
     },
     ...
   ]
