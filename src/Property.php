@@ -17,12 +17,12 @@ class Property
   public $label;
 
   /**
-   * @var string List of property values
+   * @var \Illuminate\Support\Collection Collection of property values
    */
   public $values;
 
   /**
-   * @param \Illuminate\Support\Collection $data
+   * @param array $data
    */
   public function __construct($data)
   {
@@ -30,9 +30,9 @@ class Property
   }
 
   /**
-   * Get all values
+   * Get list of all property values as an array
    * 
-   * @return array Return list of all property values as an array
+   * @return Wikidata/Value[]
    */
   public function values()
   {
@@ -40,9 +40,9 @@ class Property
   }
 
   /**
-   * One more way to get all values
+   * One more way to get list of all property values as an array
    * 
-   * @return array Return list of all property values as an array
+   * @return Wikidata/Value[]
    */
   public function getValues()
   {
