@@ -5,28 +5,33 @@ namespace Wikidata;
 class Qualifier
 {
   /**
-   * @var string Property Id
+   * @var string Qualifier Id
    */
   public $id;
 
   /**
-   * @var string Property label
+   * @var string Qualifier label
    */
   public $label;
 
   /**
-   * @var string Property value
+   * @var string Qualifier value
    */
   public $value;
 
   /**
-   * @param \Illuminate\Support\Collection $data
+   * @param array $data
    */
   public function __construct($data)
   {
     $this->parseData($data);
   }
 
+  /**
+   * Parse input data
+   * 
+   * @param array $data
+   */
   private function parseData($data)
   {
     $this->id = get_id($data['qualifier']);
