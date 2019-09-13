@@ -54,15 +54,4 @@ class EntityTest extends TestCase
 
     $this->assertInstanceOf('Wikidata\Property', $properties->first());
   }
-
-  public function testGetEntityPropertiesAsArray() 
-  {
-    $properties = $this->entity->properties();
-
-    $this->assertEquals(true, is_array($properties));
-
-    $id = str_replace("http://www.wikidata.org/prop/", "", $this->dummy[0]['prop']);
-
-    $this->assertInstanceOf('Wikidata\Property', $properties[$id]);
-  }
 }
