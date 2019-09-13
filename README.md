@@ -185,6 +185,14 @@ $properties = $entity->properties->toArray();
  */
 ```
 
+### Upgrade Guide
+
+#### Upgrade to 3.2.* from 3.1.*
+
+The main changes in the new version have occurred in the way property values are stored. Now each property can have more than one value. In this regard, the attribute `value` in the `Property` object was replaced with the attribute `values`.
+
+Also, values are now presented not as a string, but as an `Value` object. This allowed us to save along with each value not only its string representation but also a list of its `qualifiers`. Detailed information on what `qualifiers` is can be found [here](https://www.wikidata.org/wiki/Help:Qualifiers).
+
 ### Testing
 
 ```sh
