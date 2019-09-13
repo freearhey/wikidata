@@ -30,26 +30,6 @@ class Value
   }
 
   /**
-   * Get list of all value qualifiers as an array
-   * 
-   * @return Wikidata/Qualifier[]
-   */
-  public function qualifiers()
-  {
-    return $this->getQualifiers();
-  }
-
-  /**
-   * One more way to get list of all value qualifiers as an array
-   * 
-   * @return Wikidata/Qualifier[]
-   */
-  public function getQualifiers()
-  {
-    return $this->qualifiers->toArray();
-  }
-
-  /**
    * Parse input data
    * 
    * @param array $data
