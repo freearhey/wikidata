@@ -33,13 +33,4 @@ class PropertyTest extends TestCase
 
     $this->assertInstanceOf('Wikidata\Value', $values->first());
   }
-
-  public function testGetPropertyValuesAsArray()
-  {
-    $values = $this->property->values();
-
-    $this->assertEquals(true, is_array($values));
-
-    $this->assertInstanceOf('Wikidata\Value', $values[0]);
-  }
 }
