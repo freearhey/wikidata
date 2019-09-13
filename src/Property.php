@@ -30,26 +30,6 @@ class Property
   }
 
   /**
-   * Get list of all property values as an array
-   * 
-   * @return Wikidata/Value[]
-   */
-  public function values()
-  {
-    return $this->getValues();
-  }
-
-  /**
-   * One more way to get list of all property values as an array
-   * 
-   * @return Wikidata/Value[]
-   */
-  public function getValues()
-  {
-    return $this->values->toArray();
-  }
-
-  /**
    * Parse input data
    * 
    * @param array $data
