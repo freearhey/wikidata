@@ -3,30 +3,15 @@
 namespace Wikidata\Tests;
 
 use Wikidata\Entity;
-use Wikidata\Property;
-use Illuminate\Support\Collection;
-use PHPUnit\Framework\TestCase;
 
 class EntityTest extends TestCase
 {
   protected $lang = 'en';
 
-  protected $dummy;
-
   protected $entity;
 
   public function setUp(): void
   {
-    $this->dummy = [
-      'item' => 'http://www.wikidata.org/entity/Q11019',
-      'itemLabel' => 'máquina',
-      'itemDescription' => 'conjunto de elementos móviles y fijos orientados para realizar un trabajo determinado',
-      'itemAltLabel' => 'maquina',
-      'prop' => 'http://www.wikidata.org/entity/P101',
-      'propertyLabel' => 'campo de trabajo',
-      'propertyValue' => 'ingeniería'
-    ];
-
     $this->lang = 'es';
 
     $this->entity = new Entity([$this->dummy], $this->lang);
@@ -63,9 +48,21 @@ class EntityTest extends TestCase
 
   public function testGetEntityProperties() 
   {
-    $property = new Property($this->dummy);
-    $properties = collect([ $property->id => $property ]);
+    $properties = $this->entity->properties;
 
-    $this->assertEquals($properties, $this->entity->properties);
+    $this->assertInstanceOf('Illuminate\Support\Collection', $properties);
+
+    $this->assertInstanceOf('Wikidata\Property', $properties->first());
+  }
+
+  public function testGetEntityPropertiesAsArray() 
+  {
+    $properties = $this->entity->properties();
+
+    $this->assertEquals(true, is_array($properties));
+
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']);
+
+    $this->assertInstanceOf('Wikidata\Property', $properties[$id]);
   }
 }
