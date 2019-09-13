@@ -12,7 +12,7 @@ class Entity
   public $id;
 
   /**
-   * @var string Entity label
+   * @var string Entity language
    */
   public $lang;
   
@@ -22,7 +22,7 @@ class Entity
   public $label;
   
   /**
-   * @var string[] Array of all entity aliases
+   * @var string[] List of entity aliases
    */
   public $aliases = [];
   
@@ -32,44 +32,37 @@ class Entity
   public $description;
 
   /**
-   * @var string[] Array of all entity properties
+   * @var \Illuminate\Support\Collection Collection of entity properties
    */
-  public $properties = [];
+  public $properties;
 
   /**
-   * @param \Illuminate\Support\Collection $data
+   * @param array $data
+   * @param string $lang
    */
   public function __construct($data, $lang) 
   {
-    $data = $this->formatData($data);
-
-    $this->id = $data['id'];
+    $this->parseData($data);
     $this->lang = $lang;
-    $this->label = $data['label'];
-    $this->aliases = $data['aliases'];
-    $this->description = $data['description'];
-    $this->properties = $data['properties'];
   }
 
-  private function formatData($data)
-  {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $data[0]['item']);
-    $label = $data[0]['itemLabel'];
-    $description = $data[0]['itemDescription'];
-    $aliases = explode(', ', $data[0]['itemAltLabel']);
+  /**
+   * Parse input data
+   * 
+   * @param array $data
+   */
+  private function parseData($data)
+  {    
+    $this->id = get_id($data[0]['item']);
+    $this->label = $data[0]['itemLabel'];
+    $this->aliases = explode(', ', $data[0]['itemAltLabel']);
+    $this->description = $data[0]['itemDescription'];
 
-    $collection = collect($data);
-    $properties = $collection->mapWithKeys(function($prop) {
-      $property = new Property($prop);
+    $collection = collect($data)->groupBy('prop');
+    $this->properties = $collection->mapWithKeys(function($item) {
+      $property = new Property($item);
+
       return [$property->id => $property];
     });
-    
-    return [
-      'id' => $id,
-      'label' => $label,
-      'description' => $description,
-      'aliases' => $aliases,
-      'properties' => $properties
-    ];
   }
 }

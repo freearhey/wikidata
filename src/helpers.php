@@ -23,3 +23,17 @@ function is_pid($value)
 {
     return preg_match("/^P[0-9]+/", $value);
 }
+
+/**
+ * Get ID from URL
+ *
+ * @param string $string String from which to get the ID
+ * 
+ * @return string
+ */
+function get_id($string)
+{
+  preg_match('/(Q|P)\d+/i', $string, $matches);
+
+  return !empty($matches) ? $matches[0] : $string;
+}

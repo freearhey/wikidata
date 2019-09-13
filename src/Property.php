@@ -2,6 +2,8 @@
 
 namespace Wikidata;
 
+use Wikidata\Value;
+
 class Property
 {
   /**
@@ -15,32 +17,32 @@ class Property
   public $label;
 
   /**
-   * @var string Property value
+   * @var \Illuminate\Support\Collection Collection of property values
    */
-  public $value;
+  public $values;
 
   /**
-   * @param \Illuminate\Support\Collection $data
+   * @param array $data
    */
-  public function __construct($data) 
+  public function __construct($data)
   {
-    $data = $this->formatData($data);
-
-    $this->id = $data['id'];
-    $this->label = $data['label'];
-    $this->value = $data['value'];
+    $this->parseData($data);
   }
 
-  private function formatData($data)
+  /**
+   * Parse input data
+   * 
+   * @param array $data
+   */
+  private function parseData($data)
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $data['prop']);
-    $label = $data['propLabel'];
-    $value = $data['propValue'];
+    $grouped = collect($data)->groupBy('statement');
+    $flatten = $grouped->flatten(1);
 
-    return [
-      'id' => $id,
-      'label' => $label,
-      'value' => $value
-    ];
+    $this->id = get_id($flatten[0]['prop']);
+    $this->label = $flatten[0]['propertyLabel'];
+    $this->values = $grouped->values()->map(function($v) {
+      return new Value($v->toArray());
+    });
   }
 }
