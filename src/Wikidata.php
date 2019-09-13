@@ -118,7 +118,7 @@ class Wikidata
             ?property wikibase:claim ?prop . 
             ?property wikibase:statementProperty ?ps . 
             OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . } 
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . '" } 
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . ',en" } 
         }';
 
         $client = new SparqlClient();
