@@ -7,38 +7,53 @@ use Wikidata\Qualifier;
 class Value
 {
   /**
-   * @var string Property Id
+   * @var string Value Id
    */
   public $id;
 
   /**
-   * @var string Property label
+   * @var string Value label
    */
   public $label;
 
   /**
-   * @var array List of property qualifiers
+   * @var \Illuminate\Support\Collection Collection of value qualifiers
    */
   public $qualifiers;
 
   /**
-   * @param \Illuminate\Support\Collection $data
+   * @param array $data
    */
   public function __construct($data)
   {
     $this->parseData($data);
   }
 
+  /**
+   * Get list of all value qualifiers as an array
+   * 
+   * @return Wikidata/Qualifier[]
+   */
   public function qualifiers()
   {
     return $this->getQualifiers();
   }
 
+  /**
+   * One more way to get list of all value qualifiers as an array
+   * 
+   * @return Wikidata/Qualifier[]
+   */
   public function getQualifiers()
   {
     return $this->qualifiers->toArray();
   }
 
+  /**
+   * Parse input data
+   * 
+   * @param array $data
+   */
   private function parseData($data)
   {
     $this->id = get_id($data[0]['propertyValue']);
