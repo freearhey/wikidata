@@ -10,19 +10,19 @@ class ValueTest extends TestCase
 
   public function setUp(): void
   {
-    $this->value = new Value([$this->dummy]);
+    $this->value = new Value($this->dummy);
   }
 
   public function testGetValueId()
   {
-    $id = str_replace('http://www.wikidata.org/entity/', '', $this->dummy['propertyValue']);
+    $id = str_replace('http://www.wikidata.org/entity/', '', $this->dummy[0]['propertyValue']);
 
     $this->assertEquals($id, $this->value->id);
   }
 
   public function testGetValueLabel()
   {
-    $this->assertEquals($this->dummy['propertyValueLabel'], $this->value->label);
+    $this->assertEquals($this->dummy[0]['propertyValueLabel'], $this->value->label);
   }
 
   public function testGetValueQualifiers()

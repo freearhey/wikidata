@@ -10,19 +10,19 @@ class PropertyTest extends TestCase
 
   public function setUp(): void
   {
-    $this->property = new Property([$this->dummy]);
+    $this->property = new Property($this->dummy);
   }
 
   public function testGetPropertyId()
   {
-    $id = str_replace('http://www.wikidata.org/entity/', '', $this->dummy['prop']);
+    $id = str_replace('http://www.wikidata.org/prop/', '', $this->dummy[0]['prop']);
 
     $this->assertEquals($id, $this->property->id);
   }
 
   public function testGetPropertyLabel()
   {
-    $this->assertEquals($this->dummy['propertyLabel'], $this->property->label);
+    $this->assertEquals($this->dummy[0]['propertyLabel'], $this->property->label);
   }
 
   public function testGetPropertyValues()

@@ -14,12 +14,12 @@ class EntityTest extends TestCase
   {
     $this->lang = 'es';
 
-    $this->entity = new Entity([$this->dummy], $this->lang);
+    $this->entity = new Entity($this->dummy, $this->lang);
   }
 
   public function testGetEntityId()
   {
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['item']);
+    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy[0]['item']);
 
     $this->assertEquals($id, $this->entity->id);
   }
@@ -31,19 +31,19 @@ class EntityTest extends TestCase
 
   public function testGetEntityLabel()
   {
-    $this->assertEquals($this->dummy['itemLabel'], $this->entity->label);
+    $this->assertEquals($this->dummy[0]['itemLabel'], $this->entity->label);
   }
 
   public function testGetEntityAliases()
   {
-    $aliases = explode(', ', $this->dummy['itemAltLabel']);
+    $aliases = explode(', ', $this->dummy[0]['itemAltLabel']);
 
     $this->assertEquals($aliases, $this->entity->aliases);
   }
 
   public function testGetEntityDescription()
   {
-    $this->assertEquals($this->dummy['itemDescription'], $this->entity->description);
+    $this->assertEquals($this->dummy[0]['itemDescription'], $this->entity->description);
   }
 
   public function testGetEntityProperties() 
@@ -61,7 +61,7 @@ class EntityTest extends TestCase
 
     $this->assertEquals(true, is_array($properties));
 
-    $id = str_replace("http://www.wikidata.org/entity/", "", $this->dummy['prop']);
+    $id = str_replace("http://www.wikidata.org/prop/", "", $this->dummy[0]['prop']);
 
     $this->assertInstanceOf('Wikidata\Property', $properties[$id]);
   }
