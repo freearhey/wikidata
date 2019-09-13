@@ -4,7 +4,6 @@ namespace Wikidata\Tests;
 
 use Exception;
 use Wikidata\Wikidata;
-use PHPUnit\Framework\TestCase;
 
 class WikidataTest extends TestCase 
 {
