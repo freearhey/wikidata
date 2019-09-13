@@ -110,7 +110,7 @@ class Wikidata
             throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue 
+        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel 
         { 
             VALUES (?item) {(wd:' . $entityId . ')}
             ?item ?prop ?statement . 
