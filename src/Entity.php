@@ -47,26 +47,6 @@ class Entity
   }
 
   /**
-   * Get list of all entity properties as an array
-   * 
-   * @return Wikidata/Property[]
-   */
-  public function properties()
-  {
-    return $this->getProperties();
-  }
-
-  /**
-   * One more way to get list of all entity properties as an array
-   * 
-   * @return Wikidata/Property[]
-   */
-  public function getProperties()
-  {
-    return $this->properties->toArray();
-  }
-
-  /**
    * Parse input data
    * 
    * @param array $data
