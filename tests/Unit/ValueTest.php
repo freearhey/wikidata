@@ -33,13 +33,4 @@ class ValueTest extends TestCase
 
     $this->assertInstanceOf('Wikidata\Qualifier', $qualifiers->first());
   }
-
-  public function testGetValueQualifiersAsArray()
-  {
-    $qualifiers = $this->value->qualifiers();
-
-    $this->assertEquals(true, is_array($qualifiers));
-
-    $this->assertInstanceOf('Wikidata\Qualifier', $qualifiers[0]);
-  }
 }
