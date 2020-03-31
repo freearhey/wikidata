@@ -110,7 +110,7 @@ class Wikidata
             throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel 
+        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel ?wikipediaArticle 
         { 
             VALUES (?item) {(wd:' . $entityId . ')}
             ?item ?prop ?statement . 
@@ -118,6 +118,11 @@ class Wikidata
             ?property wikibase:claim ?prop . 
             ?property wikibase:statementProperty ?ps . 
             OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . } 
+            OPTIONAL {
+              ?wikipediaArticle schema:about ?item .
+              ?wikipediaArticle schema:inLanguage "' . $lang . '" .
+              FILTER (SUBSTR(str(?wikipediaArticle), 1, 25) = "https://' . $lang .'.wikipedia.org/")
+            }
             SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . ',en" } 
         }';
 
