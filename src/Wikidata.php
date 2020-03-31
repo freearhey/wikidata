@@ -75,8 +75,13 @@ class Wikidata
         $subject = is_qid($value) ? 'wd:' . $value : '"' . $value . '"';
 
         $query = '
-            SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription WHERE {
+            SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription ?wikipediaArticle WHERE {
                 ?item wdt:' . $property . ' ' . $subject . '.
+                OPTIONAL {
+                  ?wikipediaArticle schema:about ?item .
+                  ?wikipediaArticle schema:inLanguage "' . $lang . '" .
+                  FILTER (SUBSTR(str(?wikipediaArticle), 1, 25) = "https://' . $lang .'.wikipedia.org/")
+                }
                 SERVICE wikibase:label {
                     bd:serviceParam wikibase:language "' . $lang . '".
                 }
