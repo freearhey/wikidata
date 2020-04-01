@@ -40,6 +40,7 @@ class SearchResult
     $this->lang = $lang;
     $this->label = $data['label'];
     $this->description = $data['description'];
+    $this->wikipedia_article = $data['wikipediaArticle'];
     $this->aliases = $data['aliases'];
   }
 
@@ -55,13 +56,15 @@ class SearchResult
       $label = isset($data['itemLabel']) ? $data['itemLabel'] : null;
       $aliases = isset($data['itemAltLabel']) ? explode(', ', $data['itemAltLabel']) : [];
       $description = isset($data['itemDescription']) ? $data['itemDescription'] : null;
+      $wikipediaArticle = isset($data['wikipediaArticle']) ? $data['wikipediaArticle'] : null;
     }
 
     return [
       'id' => $id,
       'label' => $label,
       'aliases' => $aliases,
-      'description' => $description
+      'description' => $description,
+      'wikipediaArticle' => $wikipediaArticle,
     ];
   }
 }
