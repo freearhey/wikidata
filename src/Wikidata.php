@@ -46,7 +46,7 @@ class Wikidata
         $collection = collect($data);
 
         $output = $collection->map(function ($item) use ($lang) {
-            $item['wikipediaArticle'] = 'https://' . $lang .'.wikipedia.org/wiki/' . $item['label'];
+            $item['wikipediaArticle'] = 'https://' . $lang . '.wikipedia.org/wiki/' . rawurlencode($item['label']);
 
             return new SearchResult($item, $lang);
         });
