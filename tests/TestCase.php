@@ -10,6 +10,7 @@ abstract class TestCase extends BaseTestCase
     [
         "item" => "http://www.wikidata.org/entity/Q49546",
         "itemLabel" => "acetone",
+        "wikipediaArticle" => "https://en.wikipedia.org/wiki/Acetone",
         "itemDescription" => "chemical compound",
         "itemAltLabel" => "2-propanone, beta-ketopropane, dimethyl ketone, dimethylketone, ketone propane, methyl ketone, propanone",
         "prop" => "http://www.wikidata.org/prop/P4952",
@@ -25,6 +26,7 @@ abstract class TestCase extends BaseTestCase
     [
         "item" => "http://www.wikidata.org/entity/Q49546",
         "itemLabel" => "acetone",
+        "wikipediaArticle" => "https://en.wikipedia.org/wiki/Acetone",
         "itemDescription" => "chemical compound",
         "itemAltLabel" => "2-propanone, beta-ketopropane, dimethyl ketone, dimethylketone, ketone propane, methyl ketone, propanone",
         "prop" => "http://www.wikidata.org/prop/P4952",
