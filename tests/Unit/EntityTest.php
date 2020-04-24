@@ -34,6 +34,11 @@ class EntityTest extends TestCase
     $this->assertEquals($this->dummy[0]['itemLabel'], $this->entity->label);
   }
 
+  public function testGetWikipediaArticle()
+  {
+    $this->assertEquals($this->dummy[0]['wikipediaArticle'], $this->entity->wikipedia_article);
+  }
+
   public function testGetEntityAliases()
   {
     $aliases = explode(', ', $this->dummy[0]['itemAltLabel']);
