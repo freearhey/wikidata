@@ -20,6 +20,11 @@ class Entity
    * @var string Entity label
    */
   public $label;
+
+  /**
+   * @var string A link to a Wikipedia article about this entity
+   */
+  public $wikipedia_article;
   
   /**
    * @var string[] List of entity aliases
