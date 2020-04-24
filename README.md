@@ -50,20 +50,22 @@ $results = $wikidata->search('car', 'fr', 5);
   Collection {
     #items: array:5 [
       0 => SearchResult {
-        id: "Q1043"
+        id: "Q1759802"
         lang: "fr"
-        label: "Carl von Linné"
-        description: "naturaliste suédois (1707-1778)"
-        aliases: []
+        label: "autocar"
+        wikipedia_article: "https://fr.wikipedia.org/wiki/autocar"
+        description: "transport routier pouvant accueillir plusieurs voyageurs pour de longues distances"
+        aliases: array:1 [
+          0 => "car"
+        ]
       }
       1 => SearchResult {
-        id: "Q14599311"
+        id: "Q224743"
         lang: "fr"
-        label: "Apoptose"
-        description: "Mort programmée des cellules"
-        aliases: array:1 [
-          0 => "Caryolyse"
-        ]
+        label: "Car"
+        wikipedia_article: "https://fr.wikipedia.org/wiki/Car"
+        description: "page d'homonymie d'un projet Wikimédia"
+        aliases: []
       }
       ...
     ]
@@ -98,17 +100,22 @@ $results = $wikidata->searchBy('P19', 'Q486868');
   Collection {
     #items: array:10 [
       0 => SearchResult {
-        id: "Q22254338"
+        id: "Q92638"
         lang: "en"
-        label: "Coco Velvett"
-        description: "American pornographic actress"
-        aliases: array:2 []
+        label: "Robert Tarjan"
+        wikipedia_article: "https://en.wikipedia.org/wiki/Robert_Tarjan"
+        description: "American computer scientist"
+        aliases: array:2 [
+          0 => "Robert E. Tarjan"
+          1 => "Robert Endre Tarjan"
+        ]
       }
       1 => SearchResult {
-        id: "Q24176246"
+        id: "Q184805"
         lang: "en"
-        label: "Donald D. Engen"
-        description: null
+        label: "Tom Waits"
+        wikipedia_article: "https://en.wikipedia.org/wiki/Tom_Waits"
+        description: "American singer-songwriter and actor"
         aliases: []
       }
       ...
@@ -143,6 +150,7 @@ $entity = $wikidata->get('Q19837');
     id: "Q19837"
     lang: "en"
     label: "Steve Jobs"
+    wikipedia_article: "https://en.wikipedia.org/wiki/Steve_Jobs"
     aliases: array:2 [
       0 => "Steven Jobs",
       1 => "Steven Paul Jobs"
