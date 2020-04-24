@@ -18,6 +18,7 @@ class SearchResultTest extends TestCase
       'id' => 'Q1111',
       'lang' => 'en',
       'label' => 'Dummy label',
+      'wikipediaArticle' => 'https://en.wikipedia.org/wiki/Dummy',
       'aliases' => [ 'Dummy alias' ],
       'description' => 'Dummy description'
     ];
@@ -40,6 +41,11 @@ class SearchResultTest extends TestCase
   public function testGetResultLabel() 
   {
     $this->assertEquals($this->dummy['label'], $this->result->label);
+  }
+
+  public function testGetResultWikipediaArticle() 
+  {
+    $this->assertEquals($this->dummy['wikipediaArticle'], $this->result->wikipedia_article);
   }
 
   public function testGetResultAliases() 
