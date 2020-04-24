@@ -46,7 +46,9 @@ class Wikidata
         $collection = collect($data);
 
         $output = $collection->map(function ($item) use ($lang) {
-            return new SearchResult($item, $lang, 'api');
+            $item['wikipediaArticle'] = 'https://' . $lang .'.wikipedia.org/wiki/' . $item['label'];
+
+            return new SearchResult($item, $lang);
         });
 
         return $output;
@@ -95,7 +97,13 @@ class Wikidata
         $collection = collect($data);
 
         $output = $collection->map(function ($item) use ($lang) {
-            return new SearchResult($item, $lang, 'sparql');
+            return new SearchResult([
+                'id' => str_replace("http://www.wikidata.org/entity/", "", $item['item']),
+                'label' => $item['itemLabel'],
+                'aliases' => explode(', ', $item['itemAltLabel']),
+                'description' => $item['itemDescription'],
+                'wikipediaArticle' => $item['wikipediaArticle'],
+            ], $lang);
         });
 
         return $output;
