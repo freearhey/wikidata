@@ -15,11 +15,11 @@ class Wikidata
 
     /**
      * Search entities by term
-     * 
+     *
      * @param string $query
-     * @param string $lang Language (default: en) 
+     * @param string $lang Language (default: en)
      * @param string $limit Max count of returning items (default: 10)
-     * 
+     *
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
     public function search($query, $lang = 'en', $limit = 10)
@@ -56,12 +56,12 @@ class Wikidata
 
     /**
      * Search entities by property ID and it value
-     * 
+     *
      * @param string $property Wikidata ID of property (e.g.: P646)
      * @param string $value String value of property or Wikidata entity ID (e.g.: Q11696)
      * @param string $lang Language (default: en)
      * @param string $limit Max count of returning items (default: 10)
-     * 
+     *
      * @return \Illuminate\Support\Collection Return collection of \Wikidata\SearchResult
      */
     public function searchBy($property, $value = null, $lang = 'en', $limit = 10)
@@ -111,10 +111,10 @@ class Wikidata
 
     /**
      * Get entity by ID
-     * 
+     *
      * @param string $entityId Wikidata entity ID (e.g.: Q11696)
      * @param string $lang Language
-     * 
+     *
      * @return \Wikidata\Entity Return entity
      */
     public function get($entityId, $lang = 'en')
@@ -123,20 +123,20 @@ class Wikidata
             throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
         }
 
-        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel ?wikipediaArticle 
-        { 
+        $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel ?wikipediaArticle
+        {
             VALUES (?item) {(wd:' . $entityId . ')}
-            ?item ?prop ?statement . 
-            ?statement ?ps ?propertyValue . 
-            ?property wikibase:claim ?prop . 
-            ?property wikibase:statementProperty ?ps . 
-            OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . } 
+            ?item ?prop ?statement .
+            ?statement ?ps ?propertyValue .
+            ?property wikibase:claim ?prop .
+            ?property wikibase:statementProperty ?ps .
+            OPTIONAL { ?statement ?pq ?qualifierValue . ?qualifier wikibase:qualifier ?pq . }
             OPTIONAL {
               ?wikipediaArticle schema:about ?item .
               ?wikipediaArticle schema:inLanguage "' . $lang . '" .
               FILTER (SUBSTR(str(?wikipediaArticle), 1, 25) = "https://' . $lang .'.wikipedia.org/")
             }
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . ',en" } 
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "' . $lang . ',en" }
         }';
 
         $client = new SparqlClient();
