@@ -2,6 +2,7 @@
 
 namespace Wikidata;
 
+use Exception;
 use GuzzleHttp\Client;
 
 class SparqlClient {
