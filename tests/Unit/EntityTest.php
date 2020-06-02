@@ -51,7 +51,7 @@ class EntityTest extends TestCase
     $this->assertEquals($this->dummy[0]['itemDescription'], $this->entity->description);
   }
 
-  public function testGetEntityProperties() 
+  public function testGetEntityProperties()
   {
     $properties = $this->entity->properties;
 

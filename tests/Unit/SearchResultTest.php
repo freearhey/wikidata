@@ -6,7 +6,7 @@ use Wikidata\SearchResult;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
-class SearchResultTest extends TestCase 
+class SearchResultTest extends TestCase
 {
   protected $dummy;
 
@@ -28,32 +28,32 @@ class SearchResultTest extends TestCase
     $this->result = new SearchResult($collection);
   }
 
-  public function testGetResultId() 
+  public function testGetResultId()
   {
     $this->assertEquals($this->dummy['id'], $this->result->id);
   }
 
-  public function testGetResultLang() 
+  public function testGetResultLang()
   {
     $this->assertEquals($this->dummy['lang'], $this->result->lang);
   }
 
-  public function testGetResultLabel() 
+  public function testGetResultLabel()
   {
     $this->assertEquals($this->dummy['label'], $this->result->label);
   }
 
-  public function testGetResultWikipediaArticle() 
+  public function testGetResultWikipediaArticle()
   {
     $this->assertEquals($this->dummy['wikipediaArticle'], $this->result->wikipedia_article);
   }
 
-  public function testGetResultAliases() 
+  public function testGetResultAliases()
   {
     $this->assertEquals($this->dummy['aliases'], $this->result->aliases);
   }
 
-  public function testGetResultDescription() 
+  public function testGetResultDescription()
   {
     $this->assertEquals($this->dummy['description'], $this->result->description);
   }

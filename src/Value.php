@@ -31,7 +31,7 @@ class Value
 
   /**
    * Parse input data
-   * 
+   *
    * @param array $data
    */
   private function parseData($data)

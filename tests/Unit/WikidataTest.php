@@ -5,7 +5,7 @@ namespace Wikidata\Tests;
 use Exception;
 use Wikidata\Wikidata;
 
-class WikidataTest extends TestCase 
+class WikidataTest extends TestCase
 {
   protected $wikidata;
 
@@ -14,7 +14,7 @@ class WikidataTest extends TestCase
     $this->wikidata = new Wikidata();
   }
 
-  public function testSearchByTerm() 
+  public function testSearchByTerm()
   {
     $results = $this->wikidata->search('London');
 
@@ -25,21 +25,21 @@ class WikidataTest extends TestCase
     $this->assertInstanceOf('Wikidata\SearchResult', $result);
   }
 
-  public function testSearchOnAnotherLanguage() 
+  public function testSearchOnAnotherLanguage()
   {
     $results = $this->wikidata->search('London', 'fr');
 
     $this->assertEquals('fr', $results->first()->lang);
   }
 
-  public function testSearchWithLimit() 
+  public function testSearchWithLimit()
   {
     $results = $this->wikidata->search('car', 'en', 10);
 
     $this->assertEquals(10, $results->count());
   }
 
-  public function testSearchResultsCouldBeEmpty() 
+  public function testSearchResultsCouldBeEmpty()
   {
     $results = $this->wikidata->search('asdfgh');
 
@@ -48,7 +48,7 @@ class WikidataTest extends TestCase
     $this->assertEquals(true, $results->isEmpty());
   }
 
-  public function testSearchByPropertyIdAndValue() 
+  public function testSearchByPropertyIdAndValue()
   {
     $results = $this->wikidata->searchBy('P646', '/m/02mjmr');
 
@@ -59,21 +59,21 @@ class WikidataTest extends TestCase
     $this->assertInstanceOf('Wikidata\SearchResult', $result);
   }
 
-  public function testSearchByThrowExceptionIfSecondPropertyMissing() 
+  public function testSearchByThrowExceptionIfSecondPropertyMissing()
   {
     $this->expectException(Exception::class);
 
     $this->wikidata->searchBy('P646');
   }
 
-  public function testSearchByThrowExceptionIfPropertyIdInvalid() 
+  public function testSearchByThrowExceptionIfPropertyIdInvalid()
   {
     $this->expectException(Exception::class);
 
     $this->wikidata->searchBy('Pasd', '/m/02mjmr');
   }
 
-  public function testSearchByPropertyIdAndEntityId() 
+  public function testSearchByPropertyIdAndEntityId()
   {
     $results = $this->wikidata->searchBy('P39', 'Q11696');
 
@@ -84,21 +84,21 @@ class WikidataTest extends TestCase
     $this->assertInstanceOf('Wikidata\SearchResult', $result);
   }
 
-  public function testGetEntityById() 
+  public function testGetEntityById()
   {
     $entity = $this->wikidata->get('Q44077');
 
     $this->assertInstanceOf('Wikidata\Entity', $entity);
   }
 
-  public function testGetEntityOnAnotherLanguage() 
+  public function testGetEntityOnAnotherLanguage()
   {
     $entity = $this->wikidata->get('Q44077', 'es');
 
     $this->assertEquals('es', $entity->lang);
   }
 
-  public function testGetEntityThrowExceptionIfEntityIdInvalid() 
+  public function testGetEntityThrowExceptionIfEntityIdInvalid()
   {
     $this->expectException(Exception::class);
 

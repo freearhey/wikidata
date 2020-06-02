@@ -15,7 +15,7 @@ class Entity
    * @var string Entity language
    */
   public $lang;
-  
+
   /**
    * @var string Entity label
    */
@@ -25,12 +25,12 @@ class Entity
    * @var string A link to a Wikipedia article about this entity
    */
   public $wikipedia_article;
-  
+
   /**
    * @var string[] List of entity aliases
    */
   public $aliases = [];
-  
+
   /**
    * @var string Entity description
    */
@@ -45,7 +45,7 @@ class Entity
    * @param array $data
    * @param string $lang
    */
-  public function __construct($data, $lang) 
+  public function __construct($data, $lang)
   {
     $this->parseData($data);
     $this->lang = $lang;
@@ -53,11 +53,11 @@ class Entity
 
   /**
    * Parse input data
-   * 
+   *
    * @param array $data
    */
   private function parseData($data)
-  {    
+  {
     $this->id = get_id($data[0]['item']);
     $this->label = $data[0]['itemLabel'];
     $this->wikipedia_article = $data[0]['wikipediaArticle'];

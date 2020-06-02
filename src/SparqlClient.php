@@ -2,6 +2,7 @@
 
 namespace Wikidata;
 
+use Exception;
 use GuzzleHttp\Client;
 
 class SparqlClient {
@@ -49,8 +50,8 @@ class SparqlClient {
     $client = new Client();
 
     $response = $client->request( $this->method, self::SPARQL_ENDPOINT, [
-        'query' => [ 
-          "query" => $query, 
+        'query' => [
+          "query" => $query,
           "format" => "json",
           "maxQueryTimeMillis" => $this->timeout * 1000
         ]
@@ -65,7 +66,7 @@ class SparqlClient {
     $result = $response->getBody();
 
     $data = json_decode( $result, true );
-    
+
     if ( $data === null || $data === false ) {
       throw new Exception( "HTTP request failed, response:\n" .
         substr( $result, 1024 ) );

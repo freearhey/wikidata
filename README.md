@@ -37,7 +37,7 @@ $results = $wikidata->search($query, $lang, $limit);
 
 Arguments:
 
-- `$query`: term to search (required) 
+- `$query`: term to search (required)
 - `$lang`: specify the results language (default: 'en')
 - `$limit`: set a custom limit (default: 10)
 
@@ -77,7 +77,7 @@ The `search()` method always returns `Illuminate\Support\Collection` class with 
 
 ### `searchBy()`
 
-The `searchBy` help you to find Wikidata entities by it properties value. 
+The `searchBy` help you to find Wikidata entities by it properties value.
 
 ```php
 $results = $wikidata->searchBy($propId, $entityId, $lang, $limit);
@@ -86,7 +86,7 @@ $results = $wikidata->searchBy($propId, $entityId, $lang, $limit);
 Arguments:
 
 - `$propId`: id of the property by which to search (required)
-- `$entityId`: id of the entity (required) 
+- `$entityId`: id of the entity (required)
 - `$lang`: specify the results language (default: 'en')
 - `$limit`: set a custom limit (default: 10)
 
@@ -136,7 +136,7 @@ $entity = $wikidata->get($entityId, $lang);
 
 Arguments:
 
-- `$entityId`: id of the entity (required) 
+- `$entityId`: id of the entity (required)
 - `$lang`: specify the results language (default: 'en')
 
 Example:
