@@ -61,7 +61,7 @@ class Entity
     $this->id = get_id($data[0]['item']);
     $this->label = $data[0]['itemLabel'];
     $this->wikipedia_article = $data[0]['wikipediaArticle'];
-    $this->aliases = explode(', ', $data[0]['itemAltLabel']);
+    $this->aliases = is_string($data[0]['itemAltLabel']) ? explode(', ', $data[0]['itemAltLabel']) : [];
     $this->description = $data[0]['itemDescription'];
 
     $collection = collect($data)->groupBy('prop');
