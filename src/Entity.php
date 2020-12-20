@@ -24,7 +24,7 @@ class Entity
   /**
    * @var string A link to a Wikipedia article about this entity
    */
-  public $wikipedia_article;
+  public $wiki_url = null;
 
   /**
    * @var string[] List of entity aliases
@@ -60,12 +60,11 @@ class Entity
   {
     $this->id = get_id($data[0]['item']);
     $this->label = $data[0]['itemLabel'];
-    $this->wikipedia_article = $data[0]['wikipediaArticle'];
     $this->aliases = is_string($data[0]['itemAltLabel']) ? explode(', ', $data[0]['itemAltLabel']) : [];
     $this->description = $data[0]['itemDescription'];
 
     $collection = collect($data)->groupBy('prop');
-    $this->properties = $collection->mapWithKeys(function($item) {
+    $this->properties = $collection->mapWithKeys(function ($item) {
       $property = new Property($item);
 
       return [$property->id => $property];
