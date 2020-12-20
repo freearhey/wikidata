@@ -39,7 +39,7 @@ class Entity
   /**
    * @var \Illuminate\Support\Collection Collection of entity properties
    */
-  public $properties;
+  public $properties = [];
 
   /**
    * @param array $data
@@ -47,8 +47,8 @@ class Entity
    */
   public function __construct($data, $lang)
   {
-    $this->parseData($data);
     $this->lang = $lang;
+    $this->parseData($data);
   }
 
   /**
@@ -58,11 +58,23 @@ class Entity
    */
   private function parseData($data)
   {
-    $this->id = get_id($data[0]['item']);
-    $this->label = $data[0]['itemLabel'];
-    $this->aliases = is_string($data[0]['itemAltLabel']) ? explode(', ', $data[0]['itemAltLabel']) : [];
-    $this->description = $data[0]['itemDescription'];
+    $lang = $this->lang;
+    $site = $lang . 'wiki';
 
+    $this->id = $data['id'];
+    $this->label = isset($data['labels'][$lang]) ? $data['labels'][$lang]['value'] : null;
+    $this->description = isset($data['descriptions'][$lang]) ? $data['descriptions'][$lang]['value'] : null;
+    $this->wiki_url = isset($data['sitelinks'][$site]) ? $data['sitelinks'][$site]['url'] : null;
+    $this->aliases = isset($data['aliases'][$lang]) ? collect($data['aliases'][$lang])->pluck('value')->toArray() : [];
+  }
+
+  /**
+   * Parse entity properties from sparql result
+   *
+   * @param array $data
+   */
+  public function parseProperties($data)
+  {
     $collection = collect($data)->groupBy('prop');
     $this->properties = $collection->mapWithKeys(function ($item) {
       $property = new Property($item);
