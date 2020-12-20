@@ -2,9 +2,9 @@
 
 namespace Wikidata\Tests;
 
-use Wikidata\SearchResult;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
+use Wikidata\SearchResult;
 
 class SearchResultTest extends TestCase
 {
@@ -18,9 +18,9 @@ class SearchResultTest extends TestCase
       'id' => 'Q1111',
       'lang' => 'en',
       'label' => 'Dummy label',
-      'wikipediaArticle' => 'https://en.wikipedia.org/wiki/Dummy',
-      'aliases' => [ 'Dummy alias' ],
-      'description' => 'Dummy description'
+      'wiki_url' => 'https://en.wikipedia.org/wiki/Dummy',
+      'aliases' => ['Dummy alias'],
+      'description' => 'Dummy description',
     ];
 
     $collection = new Collection($this->dummy);
@@ -43,9 +43,9 @@ class SearchResultTest extends TestCase
     $this->assertEquals($this->dummy['label'], $this->result->label);
   }
 
-  public function testGetResultWikipediaArticle()
+  public function testGetResultWikiUrl()
   {
-    $this->assertEquals($this->dummy['wikipediaArticle'], $this->result->wikipedia_article);
+    $this->assertEquals($this->dummy['wiki_url'], $this->result->wiki_url);
   }
 
   public function testGetResultAliases()

@@ -1,41 +1,41 @@
 {
-    "name": "freearhey/wikidata",
-    "description": "A PHP client for working with Wikidata API.",
-    "keywords": [
-        "wikidata",
-        "client",
-        "php"
-    ],
-    "homepage": "https://github.com/freearhey/wikidata",
-    "license": "MIT",
-    "version": "3.5.1",
-    "authors": [
-        {
-            "name": "Arhey",
-            "role": "developer"
-        }
-    ],
-    "require": {
-        "tightenco/collect": "^7.11",
-        "guzzlehttp/guzzle": "^6.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Wikidata\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Wikidata\\Tests\\": "tests"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^6.5"
+  "name": "freearhey/wikidata",
+  "description": "A PHP client for working with Wikidata API.",
+  "keywords": [
+    "wikidata",
+    "client",
+    "php"
+  ],
+  "homepage": "https://github.com/freearhey/wikidata",
+  "license": "MIT",
+  "version": "3.6.0",
+  "authors": [
+    {
+      "name": "Arhey",
+      "role": "developer"
     }
+  ],
+  "require": {
+    "tightenco/collect": "^8.0",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wikidata\\": "src"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Wikidata\\Tests\\": "tests"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  }
 }

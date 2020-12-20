@@ -1,6 +1,5 @@
 [![wikidata](https://raw.githubusercontent.com/maxlath/wikidata-cli/master/assets/wikidata_logo_alone.jpg)](https://wikidata.org)
 
-
 # Wikidata [![Build Status](https://travis-ci.org/freearhey/wikidata.svg?branch=master)](https://travis-ci.org/freearhey/wikidata)
 
 Wikidata provides a API for searching and retrieving data from [wikidata.org](https://www.wikidata.org).
@@ -53,7 +52,7 @@ $results = $wikidata->search('car', 'fr', 5);
         id: "Q1759802"
         lang: "fr"
         label: "autocar"
-        wikipedia_article: "https://fr.wikipedia.org/wiki/autocar"
+        wiki_url: "https://fr.wikipedia.org/wiki/autocar"
         description: "transport routier pouvant accueillir plusieurs voyageurs pour de longues distances"
         aliases: array:1 [
           0 => "car"
@@ -63,7 +62,7 @@ $results = $wikidata->search('car', 'fr', 5);
         id: "Q224743"
         lang: "fr"
         label: "Car"
-        wikipedia_article: "https://fr.wikipedia.org/wiki/Car"
+        wiki_url: "https://fr.wikipedia.org/wiki/Car"
         description: "page d'homonymie d'un projet Wikimédia"
         aliases: []
       }
@@ -103,7 +102,7 @@ $results = $wikidata->searchBy('P19', 'Q486868');
         id: "Q92638"
         lang: "en"
         label: "Robert Tarjan"
-        wikipedia_article: "https://en.wikipedia.org/wiki/Robert_Tarjan"
+        wiki_url: "https://en.wikipedia.org/wiki/Robert_Tarjan"
         description: "American computer scientist"
         aliases: array:2 [
           0 => "Robert E. Tarjan"
@@ -114,7 +113,7 @@ $results = $wikidata->searchBy('P19', 'Q486868');
         id: "Q184805"
         lang: "en"
         label: "Tom Waits"
-        wikipedia_article: "https://en.wikipedia.org/wiki/Tom_Waits"
+        wiki_url: "https://en.wikipedia.org/wiki/Tom_Waits"
         description: "American singer-songwriter and actor"
         aliases: []
       }
@@ -150,7 +149,7 @@ $entity = $wikidata->get('Q19837');
     id: "Q19837"
     lang: "en"
     label: "Steve Jobs"
-    wikipedia_article: "https://en.wikipedia.org/wiki/Steve_Jobs"
+    wiki_url: "https://en.wikipedia.org/wiki/Steve_Jobs"
     aliases: array:2 [
       0 => "Steven Jobs",
       1 => "Steven Paul Jobs"
@@ -195,7 +194,7 @@ $properties = $entity->properties->toArray();
 
 ### Upgrade Guide
 
-#### Upgrade to 3.2.* from 3.1.*
+#### Upgrade to 3.2._ from 3.1._
 
 The main changes in the new version have occurred in the way property values are stored. Now each property can have more than one value. In this regard, the attribute `value` in the `Property` object was replaced with the attribute `values`.
 
@@ -208,7 +207,9 @@ vendor/bin/phpunit
 ```
 
 ### Contribution
+
 If you find a bug or want to contribute to the code or documentation, you can help by submitting an [issue](https://github.com/freearhey/wikidata/issues) or a [pull request](https://github.com/freearhey/wikidata/pulls).
 
 ### License
+
 Wikidata is licensed under the [MIT license](http://opensource.org/licenses/MIT).
