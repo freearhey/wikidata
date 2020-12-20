@@ -95,7 +95,7 @@ class Wikidata
       $item = [
         'id' => $data['id'],
         'label' => $data['itemLabel'],
-        'aliases' => explode(', ', $data['itemAltLabel']),
+        'aliases' => !is_null($data['itemAltLabel']) ? explode(', ', $data['itemAltLabel']) : [],
         'description' => $data['itemDescription'],
       ];
 
