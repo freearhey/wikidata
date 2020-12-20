@@ -27,16 +27,11 @@ class Wikidata
 
     $ids = $collection->pluck('id')->toArray();
 
-    $entities = $client->getEntities($ids, $lang, ['sitelinks/urls']);
+    $entities = $client->getEntities($ids, $lang, ['sitelinks/urls', 'aliases', 'descriptions', 'labels']);
 
-    $output = $collection->map(function ($item) use ($entities, $lang) {
-      $entity = $entities->get($item['id']);
-      if (isset($entity)) {
-        $site = $lang . 'wiki';
-        $item['wiki_url'] = isset($entity['sitelinks'][$site]) ? $entity['sitelinks'][$site]['url'] : null;
-      }
-
-      return new SearchResult($item, $lang);
+    $output = $entities->map(function ($item) use ($lang) {
+      $entity = new Entity($item, $lang);
+      return new SearchResult($entity->toArray(), $lang);
     });
 
     return $output;
@@ -84,7 +79,6 @@ class Wikidata
 
     $output = $entities->map(function ($data) use ($lang) {
       $entity = new Entity($data, $lang);
-
       return new SearchResult($entity->toArray(), $lang);
     });
 
