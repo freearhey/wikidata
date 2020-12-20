@@ -125,7 +125,13 @@ class Wikidata
       throw new Exception("First argument in get() must by a valid Wikidata entity ID (e.g.: Q646).", 1);
     }
 
-    $query = 'SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel
+    $api = new ApiClient();
+
+    $data = $api->getEntities($entityId, $lang, ['sitelinks/urls', 'aliases', 'descriptions', 'labels'])->first();
+
+    $entity = new Entity($data, $lang);
+
+    $query = 'SELECT ?item ?prop ?propertyLabel ?statement ?propertyValue ?propertyValueLabel ?qualifier ?qualifierLabel ?qualifierValue ?qualifierValueLabel
         {
             VALUES (?item) {(wd:' . $entityId . ')}
             ?item ?prop ?statement .
@@ -139,21 +145,9 @@ class Wikidata
     $client = new SparqlClient();
 
     $data = $client->execute($query);
-    if (!$data) {
-      var_dump($data);
-      var_dump($query);
-      return null;
-    }
 
-    $entity = new Entity($data, $lang);
-
-    $api = new ApiClient();
-
-    $apiEntity = $api->getEntities($entityId, $lang, ['sitelinks/urls'])->first();
-
-    if (isset($apiEntity)) {
-      $site = $lang . 'wiki';
-      $entity->wiki_url = isset($apiEntity['sitelinks'][$site]) ? $apiEntity['sitelinks'][$site]['url'] : null;
+    if (isset($data)) {
+      $entity->parseProperties($data);
     }
 
     return $entity;
