@@ -65,11 +65,8 @@ class Wikidata
     $subject = is_qid($value) ? 'wd:' . $value : '"' . $value . '"';
 
     $query = '
-            SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription WHERE {
+            SELECT ?item WHERE {
                 ?item wdt:' . $property . ' ' . $subject . '.
-                SERVICE wikibase:label {
-                    bd:serviceParam wikibase:language "' . $lang . '".
-                }
             } LIMIT ' . $limit . '
         ';
 
@@ -77,35 +74,18 @@ class Wikidata
 
     $data = $client->execute($query);
 
-    $collection = collect($data);
-
-    $collection = $collection->map(function ($data) {
-      $data['id'] = str_replace("http://www.wikidata.org/entity/", "", $data['item']);
-
-      return $data;
-    });
+    $ids = collect($data)->map(function ($data) {
+      return str_replace("http://www.wikidata.org/entity/", "", $data['item']);
+    })->toArray();
 
     $client = new ApiClient();
 
-    $ids = $collection->pluck('id')->toArray();
+    $entities = $client->getEntities($ids, $lang, ['sitelinks/urls', 'aliases', 'descriptions', 'labels']);
 
-    $entities = $client->getEntities($ids, $lang, ['sitelinks/urls']);
+    $output = $entities->map(function ($data) use ($lang) {
+      $entity = new Entity($data, $lang);
 
-    $output = $collection->map(function ($data) use ($entities, $lang) {
-      $item = [
-        'id' => $data['id'],
-        'label' => $data['itemLabel'],
-        'aliases' => !is_null($data['itemAltLabel']) ? explode(', ', $data['itemAltLabel']) : [],
-        'description' => $data['itemDescription'],
-      ];
-
-      $entity = $entities->get($item['id']);
-      if (isset($entity)) {
-        $site = $lang . 'wiki';
-        $item['wiki_url'] = isset($entity['sitelinks'][$site]) ? $entity['sitelinks'][$site]['url'] : null;
-      }
-
-      return new SearchResult($item, $lang);
+      return new SearchResult($entity->toArray(), $lang);
     });
 
     return $output;
