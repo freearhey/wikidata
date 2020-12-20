@@ -4,3 +4,4 @@ composer.lock
 /examples
 .idea
 /demo
+.phpunit.*
