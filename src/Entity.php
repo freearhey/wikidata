@@ -82,4 +82,17 @@ class Entity
       return [$property->id => $property];
     });
   }
+
+  public function toArray()
+  {
+    return [
+      'id' => $this->id,
+      'lang' => $this->lang,
+      'label' => $this->label,
+      'description' => $this->description,
+      'wiki_url' => $this->wiki_url,
+      'aliases' => $this->aliases,
+      'properties' => $this->properties,
+    ];
+  }
 }
